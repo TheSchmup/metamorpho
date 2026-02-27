@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Metamorpho</title>
+  <script src="https://cdn.tailwindcss.com?cache=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    /* Safety net if Tailwind fails to load */
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    @font-face {
+      font-family: 'MetaFont';
+      src:
+        url('assets/fonts/MetaFont-Regular.woff2') format('woff2'),
+        url('assets/fonts/MetaFont.otf') format('opentype');
+    }
+
+    @font-face {
+      font-family: 'metabold';
+      src:
+        url('assets/fonts/metabold-Regular.woff2') format('woff2'),
+        url('assets/fonts/metabold.otf') format('opentype');
+    }
+
+    body {
+      font-family: 'MetaFont', sans-serif;
+    }
+
+    .font-alt {
+      font-family: 'metabold', sans-serif;
+    }
+
+    .brand-section {
+      background: #193347;
+    }
+
+    /* Reusable glass button style (works with Tailwind too) */
+    .glass {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    /* ---------- Campus buttons behavior ---------- */
+    #campusDock {
+      transition: left 700ms ease, bottom 700ms ease, transform 700ms ease, width 700ms ease;
+    }
+
+    .campus-btn {
+      transition: width 700ms ease, height 700ms ease, border-radius 700ms ease, padding 700ms ease,
+        transform 300ms ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Hover lift */
+    .campus-btn:hover {
+      transform: translateY(-8px);
+    }
+
+    /* Text blocks */
+    .campus-full {
+      transition: opacity 300ms ease;
+    }
+
+    .campus-bubble {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'metabold', sans-serif;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    /* Bubble mode (applied via JS class on #campusDock) */
+    #campusDock.bubble {
+      left: 3rem;
+      /* bottom-left dock */
+      bottom: 3rem;
+      transform: none;
+      /* remove centering translate */
+      width: auto;
+      /* shrink wrapper */
+    }
+
+    #campusDock.bubble .campus-btn {
+      width: 72px;
+      /* bubble size */
+      height: 72px;
+      border-radius: 9999px;
+      padding: 0;
+      /* no padding in bubble */
+    }
+
+    #campusDock.bubble .campus-full {
+      opacity: 0;
+    }
+
+    #campusDock.bubble .campus-bubble {
+      opacity: 1;
+    }
+
+    /* Hero hover overlay image (covers whole hero) */
+    #heroHoverOverlay {
+      opacity: 0;
+      transition: opacity 350ms ease;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    }
+
+    #heroHoverOverlay.active {
+      opacity: 1;
+    }
+
+    #heroHoverOverlay::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    /* Hero hover overlay that expands from button bounds */
+    #heroHoverOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 25;
+      pointer-events: none;
+
+      opacity: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      /* The magic: clip-path animates from button edges to full-screen */
+      clip-path: inset(var(--t, 50%) var(--r, 50%) var(--b, 50%) var(--l, 50%) round 24px);
+      transition: clip-path 520ms cubic-bezier(0.2, 0.9, 0.2, 1),
+        opacity 220ms ease;
+    }
+
+    #heroHoverOverlay.active {
+      opacity: 1;
+    }
+
+    /* Optional: makes it feel more cinematic */
+    #heroHoverOverlay.active {
+      filter: saturate(1.05) contrast(1.05);
+    }
+
+    .card {
+      position: relative;
+      left: 0px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(35px);
+      -webkit-backdrop-filter: blur(35px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transform-origin: bottom left;
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+        border-radius 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card {
+      transform-origin: bottom left;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.45s ease;
+    }
+
+    /* lift hovered card */
+    .card:hover {
+      transform: translateY(-25px) scale(1.05);
+      z-index: 60;
+    }
+
+    /* gently push neighbours without breaking layout */
+    #cardContainer:hover .card:not(:hover) {
+      transform: translateX(-10px) scale(0.98);
+    }
+
+    /* ================= NAV LINK ANIMATION ================= */
+
+    .navlink {
+      position: relative;
+      display: inline-block;
+      padding: 8px 2px;
+      opacity: 0.8;
+      letter-spacing: 0.12em;
+      transition:
+        opacity 220ms ease,
+        transform 220ms ease,
+        color 220ms ease;
+    }
+
+    /* subtle lift */
+    .navlink:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+
+    /* underline animation */
+    .navlink::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -6px;
+
+      width: 0%;
+      height: 1.5px;
+
+      background: rgba(255, 255, 255, 0.9);
+
+      transform: translateX(-50%);
+      transition: width 280ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    }
+
+    /* underline grows from center */
+    .navlink:hover::after {
+      width: 100%;
+    }
+
+    /* subtle glow (VERY light) */
+    .navlink:hover {
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.18);
+    }
+
+    .navlink::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(120deg,
+          transparent,
+          rgba(255, 255, 255, 0.12),
+          transparent);
+      opacity: 0;
+      transition: opacity 260ms ease;
+    }
+
+    .navlink:hover::before {
+      opacity: 1;
+    }
+
+    /* Simple mobile nav */
+    #mobileMenu { max-height: 0; opacity: 0; pointer-events: none; }
+    #mobileMenu.open { max-height: 520px; opacity: 1; pointer-events: auto; }
+  </style>
+</head>
+
+<body class="relative text-white overflow-x-hidden">
+
+  <!-- ================= NAV ================= -->
+  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="assets/images/meta.logo.png" class="h-12 md:h-16" alt="Meta logo" />
+      <span class="hidden md:block text-xs tracking-widest opacity-80">METAMORPHO</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden md:block backdrop-blur-xl bg-white/10 border border-white/20 px-10 py-4 rounded-full shadow-lg">
+      <ul class="flex gap-8 text-sm tracking-wider items-center">
+        <li><a class="navlink" href="index.html">HOME</a></li>
+        <li><a class="navlink" href="about.html">ABOUT</a></li>
+        <li><a class="navlink" href="gallery.html">GALLERY</a></li>
+        <li><a class="navlink" href="metaventures.html">METAVENTURES</a></li>
+        <li><a class="navlink" href="shop.html">SHOP</a></li>
+        <li><a class="navlink" href="contact.html">CONTACT</a></li>
+        <li><a class="navlink" href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button id="menuBtn" class="md:hidden glass rounded-full px-4 py-2 text-sm tracking-widest" aria-expanded="false" aria-controls="mobileMenu">
+      MENU
+    </button>
+  </nav>
+
+  <!-- Mobile nav panel -->
+  <div id="mobileMenu" class="fixed top-[84px] left-4 right-4 z-50 glass rounded-3xl p-4 transition-all duration-300">
+    <ul class="grid gap-2 text-sm tracking-wider">
+      <li><a class="navlink block" href="index.html">HOME</a></li>
+      <li><a class="navlink block" href="about.html">ABOUT</a></li>
+      <li><a class="navlink block" href="gallery.html">GALLERY</a></li>
+      <li><a class="navlink block" href="metaventures.html">METAVENTURES</a></li>
+      <li><a class="navlink block" href="shop.html">SHOP</a></li>
+      <li><a class="navlink block" href="contact.html">CONTACT</a></li>
+      <li><a class="navlink block" href="faq.html">FAQ</a></li>
+    </ul>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <section class="relative h-[160vh]">
+
+    <!-- Background -->
+    <img src="assets/images/hero.jpeg" class="absolute inset-0 w-full h-full object-cover z-0" alt="Hero background" />
+
+    <!-- Background Title -->
+    <img src="assets/images/titlelogo.png"
+      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[60vh] w-auto z-10 opacity-100 pointer-events-none"
+      alt="Metamorpho title" />
+
+    <!-- Foreground Mountains -->
+    <img src="assets/images/mountainstransp.png" class="absolute bottom-[-80px] w-full z-20 pointer-events-none"
+      alt="Foreground mountains" />
+
+    <!-- HERO HOVER OVERLAY (image bleed) -->
+    <div id="heroHoverOverlay" class="fixed inset-0 z-25 pointer-events-none"></div>
+
+    <!-- HERO CAMPUS BUTTONS -->
+    <div id="campusDock" class="fixed bottom-5 md:bottom-12 left-1/2 -translate-x-1/2 z-30 w-[92%] max-w-[1400px]">
+      <div class="flex gap-4 md:gap-6">
+
+        <!-- Pretoria -->
+        <a href="pretoria-2.html" class="campus-btn glass w-1/2 h-auto rounded-3xl px-6 md:px-10 py-7 md:py-10 text-left"
+          data-hero="assets/images/pretoria-hero.jpg">
+          <div class="campus-full">
+            <div class="text-sm tracking-widest opacity-80 mb-2">CAMPUS</div>
+            <div class="text-4xl font-alt mb-2">Pretoria</div>
+            <div class="hidden md:block text-white/70">View info, fees, team & admission.</div>
+          </div>
+          <div class="campus-bubble">PTA</div>
+        </a>
+
+        <!-- Cape Town -->
+        <a href="capetown.html" class="campus-btn glass w-1/2 h-auto rounded-3xl px-6 md:px-10 py-7 md:py-10 text-left"
+          data-hero="assets/images/capetown-hero.jpg">
+          <div class="campus-full">
+            <div class="text-sm tracking-widest opacity-80 mb-2">CAMPUS</div>
+            <div class="text-4xl font-alt mb-2">Cape Town</div>
+            <div class="hidden md:block text-white/70">Explore the Strand campus & apply.</div>
+          </div>
+          <div class="campus-bubble">CPT</div>
+        </a>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= SECOND PAGE ================= -->
+  <section class="brand-section min-h-screen flex flex-col items-center justify-center px-6 md:px-10 relative z-20">
+
+    <h2 class="text-4xl md:text-6xl font-bold mb-10 md:mb-16 font-alt text-center">
+      Your journey starts here
+    </h2>
+
+    <div class="w-[95%] max-w-[1400px] rounded-3xl overflow-hidden shadow-[0_60px_120px_rgba(0,0,0,0.6)]">
+      <!-- YouTube embed (more reliable than using a youtu.be link as an mp4 source) -->
+      <div class="relative w-full" style="padding-top:56.25%">
+        <iframe
+          class="absolute inset-0 w-full h-full"
+          src="https://www.youtube.com/embed/5ld3y54kb10"
+          title="Metamorpho Video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= THIRD PAGE ================= -->
+  <section class="min-h-[160vh] bg-black relative z-20 flex items-center">
+    <div class="w-full max-w-[1400px] mx-auto px-12">
+
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+        <h2 class="text-4xl md:text-5xl font-bold font-alt text-left">
+          Want to know more about Metamorpho?
+        </h2>
+        <div class="text-white/70 max-w-[60ch]">
+          Click a card to explore the experience — what you do, how you live, and what you’ll grow through.
+        </div>
+      </div>
+
+      <!-- Cards centered -->
+      <div id="cardContainer" class="flex flex-wrap justify-center gap-6 z-40">
+
+        <a href="about.html#camps" class="card w-64 h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
+          <img src="assets/images/camps.jpeg" class="absolute inset-0 w-full h-full object-cover -z-10">
+          <div class="absolute inset-0 bg-black/30"></div>
+          <div class="card-title absolute bottom-6 left-6 text-xl MetaFont transition-opacity duration-300">Camps</div>
+          <div class="shine absolute inset-0 pointer-events-none"></div>
+        </a>
+
+        <a href="about.html#class" class="card w-64 h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
+          <img src="assets/images/class.jpg" class="absolute inset-0 w-full h-full object-cover -z-10">
+          <div class="absolute inset-0 bg-black/30"></div>
+          <div class="card-title absolute bottom-6 left-6 text-xl MetaFont transition-opacity duration-300">Class</div>
+          <div class="shine absolute inset-0 pointer-events-none"></div>
+        </a>
+
+        <a href="about.html#communes" class="card w-64 h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
+          <img src="assets/images/commune.jpeg" class="absolute inset-0 w-full h-full object-cover -z-10">
+          <div class="absolute inset-0 bg-black/30"></div>
+          <div class="card-title absolute bottom-6 left-6 text-xl MetaFont transition-opacity duration-300">Communes
+          </div>
+          <div class="shine absolute inset-0 pointer-events-none"></div>
+        </a>
+
+        <a href="about.html#coaching" class="card w-64 h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
+          <img src="assets/images/coaching.jpeg" class="absolute inset-0 w-full h-full object-cover -z-10">
+          <div class="absolute inset-0 bg-black/30"></div>
+          <div class="card-title absolute bottom-6 left-6 text-xl MetaFont transition-opacity duration-300">Coaching
+          </div>
+          <div class="shine absolute inset-0 pointer-events-none"></div>
+        </a>
+
+        <a href="about.html#changeroom" class="card w-64 h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
+          <img src="assets/images/changeroom.jpg" class="absolute inset-0 w-full h-full object-cover -z-10">
+          <div class="absolute inset-0 bg-black/30"></div>
+          <div class="card-title absolute bottom-6 left-6 text-xl MetaFont transition-opacity duration-300">Changeroom
+          </div>
+          <div class="shine absolute inset-0 pointer-events-none"></div>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FOURTH PAGE ================= -->
+  <section class="min-h-screen bg-gray-900 flex items-center justify-center relative z-20 px-6 md:px-12">
+    <div class="w-full max-w-[1200px]">
+      <h2 class="text-4xl md:text-5xl font-bold font-alt">Ready to apply?</h2>
+      <p class="text-white/70 mt-4 max-w-[70ch]">
+        Choose a campus to see admission days, fees, and the team — or contact us if you need help.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="capetown.html#enroll" class="glass rounded-full px-8 py-4 hover:bg-white/15 transition">Apply: Cape Town</a>
+        <a href="pretoria.html#enroll" class="glass rounded-full px-8 py-4 hover:bg-white/15 transition">Apply: Pretoria</a>
+        <a href="contact.html" class="rounded-full px-8 py-4 border border-white/25 hover:border-white/50 transition">Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const dock = document.getElementById("campusDock");
+    const buttons = document.querySelectorAll(".campus-btn");
+    const overlay = document.getElementById("heroHoverOverlay");
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    // Bubble mode on scroll
+    window.addEventListener("scroll", () => {
+      const y = window.scrollY;
+      if (y > 200) dock.classList.add("bubble");
+      else dock.classList.remove("bubble");
+    });
+
+    // Mobile nav
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener("click", () => {
+        const open = mobileMenu.classList.toggle("open");
+        menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      document.addEventListener("click", (e) => {
+        if (!mobileMenu.classList.contains("open")) return;
+        if (mobileMenu.contains(e.target) || menuBtn.contains(e.target)) return;
+        mobileMenu.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    }
+
+    function setClipFromElement(el) {
+      const rect = el.getBoundingClientRect();
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      // Inset distances from viewport edges (top, right, bottom, left)
+      const top = rect.top;
+      const left = rect.left;
+      const right = vw - rect.right;
+      const bottom = vh - rect.bottom;
+
+      overlay.style.setProperty("--t", `${top}px`);
+      overlay.style.setProperty("--r", `${right}px`);
+      overlay.style.setProperty("--b", `${bottom}px`);
+      overlay.style.setProperty("--l", `${left}px`);
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener("mouseenter", () => {
+        const img = btn.getAttribute("data-hero");
+        overlay.style.backgroundImage = `url('${img}')`;
+
+        // Start clip exactly at button edges
+        setClipFromElement(btn);
+        overlay.classList.add("active");
+
+        // Next frame: expand to full screen
+        requestAnimationFrame(() => {
+          overlay.style.setProperty("--t", `0px`);
+          overlay.style.setProperty("--r", `0px`);
+          overlay.style.setProperty("--b", `0px`);
+          overlay.style.setProperty("--l", `0px`);
+        });
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        // Shrink back into the button before fading out
+        setClipFromElement(btn);
+
+        // Fade after the clip starts shrinking (feels like it returns into button)
+        setTimeout(() => overlay.classList.remove("active"), 180);
+      });
+    });
+
+    // If window resizes while hovering, keep it accurate
+    window.addEventListener("resize", () => {
+      const hovered = document.querySelector(".campus-btn:hover");
+      if (hovered && overlay.classList.contains("active")) {
+        setClipFromElement(hovered);
+        requestAnimationFrame(() => {
+          overlay.style.setProperty("--t", `0px`);
+          overlay.style.setProperty("--r", `0px`);
+          overlay.style.setProperty("--b", `0px`);
+          overlay.style.setProperty("--l", `0px`);
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
