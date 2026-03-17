@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Market | Metamorpho</title>
+  <script src="https://cdn.tailwindcss.com?cache=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; }
+    body { background: #0B1722; color: #fff; }
+
+    @font-face {
+      font-family: 'MetaFont';
+      src:
+        url('/assets/fonts/MetaFont-Regular.woff2') format('woff2'),
+        url('/assets/fonts/MetaFont.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'metabold';
+      src:
+        url('/assets/fonts/metabold-Regular.woff2') format('woff2'),
+        url('/assets/fonts/metabold.otf') format('opentype');
+    }
+    body { font-family: 'MetaFont', sans-serif; }
+    .font-alt { font-family: 'metabold', sans-serif; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+    .nav-pill {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .divider { border-top: 1px solid rgba(255,255,255,0.12); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      transition: transform .15s ease, opacity .15s ease;
+      font-family: 'metabold', sans-serif;
+      letter-spacing: .08em;
+      font-size: 12px;
+      text-transform: uppercase;
+      opacity: .92;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: 1; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.20);
+      background: rgba(255,255,255,0.08);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .92;
+    }
+
+    .market-bg{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  background-image: url("assets/images/market-bg.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: brightness(0.4);
+}
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+<div class="market-bg"></div>
+
+  <!-- ================= NAV ================= -->
+  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50">
+    <a href="/index.html" class="flex items-center gap-3">
+      <img src="/assets/images/meta.logo.png" class="h-12 md:h-16" alt="Meta logo" />
+      <span class="hidden md:block text-xs tracking-widest opacity-80">METAMORPHO</span>
+    </a>
+
+    <div class="hidden md:block nav-pill px-10 py-4 rounded-full shadow-lg">
+      <ul class="flex gap-8 text-sm tracking-wider items-center">
+        <li><a class="opacity-85 hover:opacity-100" href="/index.html">HOME</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/about.html">ABOUT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/gallery.html">GALLERY</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/metaventures.html">METAVENTURES</a></li>
+        <li><a class="opacity-100 font-alt" href="/market.html">MARKET</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/shop.html">SHOP</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/contact.html">CONTACT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/faq.html">FAQ</a></li>
+      </ul>
+    </div>
+
+    <a href="/contact.html" class="md:hidden glass px-4 py-2 rounded-full text-xs tracking-widest">
+      CONTACT
+    </a>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <section class="pt-28 md:pt-32 px-6 md:px-12">
+    <div class="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-10 items-start">
+      <div>
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-4">MARKET</div>
+        <h1 class="text-5xl md:text-6xl font-alt leading-tight">We introduce the Metamorpho Market.</h1>
+        <p class="mt-6 text-white/75 leading-relaxed max-w-[90ch]">
+          The Market is a youth entrepreneur initiative. Are you interested in joining us?
+          If yes, then this is exactly where you want to be. Below you will find the dates and contact information to become a vendor at the market.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <span class="tag">Youth Entrepreneurs</span>
+          <span class="tag">Vendor Stalls</span>
+          <span class="tag">Community</span>
+        </div>
+
+        <div class="mt-10 glass rounded-3xl p-6 md:p-8">
+          <div class="text-sm tracking-widest opacity-70 mb-3">VENUE</div>
+          <div class="text-white/80 leading-relaxed">
+            All the Markets are held at <span class="font-alt">Doxa Deo Brooklyn</span>,
+            <span class="font-alt">08h00 – 13h00</span>.
+          </div>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a class="btn w-full sm:w-auto" href="#days">See Market Days</a>
+            <a class="btn w-full sm:w-auto" href="#vendor">Apply as Vendor</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick info card -->
+      <div class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-sm tracking-widest opacity-70 mb-2">AT A GLANCE</div>
+        <h2 class="text-2xl md:text-3xl font-alt">Key info</h2>
+        <ul class="mt-5 space-y-3 text-white/75 leading-relaxed">
+          <li>• Time: <span class="font-alt">08h00 – 13h00</span></li>
+          <li>• Location: <span class="font-alt">Doxa Deo Brooklyn</span></li>
+          <li>• Vendors: contact the organiser to apply</li>
+        </ul>
+
+        <div class="mt-8 divider"></div>
+
+        <div class="mt-6 text-white/70 text-sm leading-relaxed">
+          Want to ask a question first?
+        </div>
+        <div class="mt-4">
+          <a class="btn w-full sm:w-auto" href="/contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 1. MARKET DAYS ================= -->
+  <section id="days" class="px-6 md:px-12 mt-16 md:mt-24">
+    <div class="max-w-[1200px] mx-auto glass rounded-[2.5rem] p-6 md:p-10">
+      <div class="text-xs tracking-[0.35em] opacity-70 mb-3">1. MARKET DAYS</div>
+      <h2 class="text-3xl md:text-4xl font-alt">2026 dates</h2>
+      <p class="mt-3 text-white/70 max-w-[95ch]">
+        All market days run from <span class="font-alt">08h00 – 13h00</span>. :contentReference[oaicite:1]{index=1}
+      </p>
+
+      <div class="mt-8 grid md:grid-cols-2 gap-4">
+        <div class="glass rounded-3xl p-6">
+          <div class="text-xs tracking-widest opacity-70">DATE</div>
+          <div class="mt-2 text-xl font-alt">17 April 2026</div>
+          <div class="mt-2 text-white/70">08h00 – 13h00</div>
+        </div>
+
+        <div class="glass rounded-3xl p-6">
+          <div class="text-xs tracking-widest opacity-70">DATE</div>
+          <div class="mt-2 text-xl font-alt">7 June 2026</div>
+          <div class="mt-2 text-white/70">08h00 – 13h00</div>
+        </div>
+
+        <div class="glass rounded-3xl p-6">
+          <div class="text-xs tracking-widest opacity-70">DATE</div>
+          <div class="mt-2 text-xl font-alt">21 June 2026</div>
+          <div class="mt-2 text-white/70">08h00 – 13h00</div>
+        </div>
+
+        <div class="glass rounded-3xl p-6">
+          <div class="text-xs tracking-widest opacity-70">DATE</div>
+          <div class="mt-2 text-xl font-alt">16 August 2026</div>
+          <div class="mt-2 text-white/70">08h00 – 13h00</div>
+        </div>
+
+        <div class="glass rounded-3xl p-6 md:col-span-2">
+          <div class="text-xs tracking-widest opacity-70">DATE</div>
+          <div class="mt-2 text-xl font-alt">11 October 2026</div>
+          <div class="mt-2 text-white/70">08h00 – 13h00</div>
+        </div>
+      </div>
+
+      <div class="mt-8 text-xs text-white/55">
+        Venue: Doxa Deo Brooklyn. :contentReference[oaicite:2]{index=2}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 2. APPLY TO BE A VENDOR ================= -->
+  <section id="vendor" class="px-6 md:px-12 mt-16 md:mt-24">
+    <div class="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-8 items-start">
+      <div class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-3">2. APPLY TO BE A VENDOR</div>
+        <h2 class="text-3xl md:text-4xl font-alt">Become a vendor</h2>
+        <p class="mt-4 text-white/75 leading-relaxed">
+          Please contact <span class="font-alt">Hanno Visser</span> to apply to have a stall or shop at the market. :contentReference[oaicite:3]{index=3}
+        </p>
+
+        <div class="mt-7 glass rounded-3xl p-6">
+          <div class="text-sm tracking-widest opacity-70 mb-2">CONTACT</div>
+          <div class="space-y-3 text-white/80">
+            <div>
+              <div class="text-xs tracking-widest opacity-70">EMAIL</div>
+              <a class="hover:opacity-100 opacity-90" href="mailto:hanno.visser@doxadeo.org">hanno.visser@doxadeo.org</a>
+            </div>
+            <div>
+              <div class="text-xs tracking-widest opacity-70">PHONE</div>
+              <a class="hover:opacity-100 opacity-90" href="tel:+27749752413">074 975 2413</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <a class="btn w-full sm:w-auto" href="mailto:admin@metamorpho.co.za?subject=Metamorpho%20Market%20Vendor%20Application">Email to Apply</a>
+          <a class="btn w-full sm:w-auto" href="tel:+27749752413">Call / WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-3">VENDOR NOTES</div>
+        <h3 class="text-2xl md:text-3xl font-alt">What to include</h3>
+        <p class="mt-4 text-white/70 leading-relaxed">
+          When you contact us, include:
+        </p>
+        <ul class="mt-5 space-y-3 text-white/75 leading-relaxed">
+          <li>• Your name + product / business name</li>
+          <li>• What you sell (short description)</li>
+          <li>• Stall setup needs (tables, electricity, space)</li>
+          <li>• Which date(s) you want</li>
+        </ul>
+
+        <div class="mt-8 divider"></div>
+
+        <div class="mt-6 text-white/70 text-sm leading-relaxed">
+          If you’re not ready to apply yet, you can still come through and support the vendors.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3. EVENTS ================= -->
+  <section id="events" class="px-6 md:px-12 mt-16 md:mt-24 pb-16 md:pb-24">
+    <div class="max-w-[1200px] mx-auto glass rounded-[2.5rem] p-6 md:p-10">
+      <div class="text-xs tracking-[0.35em] opacity-70 mb-3">3. EVENTS</div>
+      <h2 class="text-3xl md:text-4xl font-alt">Events</h2>
+      <p class="mt-3 text-white/70 max-w-[95ch]">
+        This section is ready for future event listings (performances, special vendors, themed market days, etc.). :contentReference[oaicite:4]{index=4}
+      </p>
+
+      <div class="mt-8 grid md:grid-cols-3 gap-4">
+        <div class="glass rounded-3xl p-6">
+          <div class="text-xs tracking-widest opacity-70">COMING SOON</div>
+          <div class="mt-2 text-xl font-alt">Special guests</div>
+          <div class="mt-2 text-white/70 text-sm">Add details when confirmed.</div>
+        </div>
+        <div class="glass rounded-3xl p-6">
+          <div class="text-xs tracking-widest opacity-70">COMING SOON</div>
+          <div class="mt-2 text-xl font-alt">Live music</div>
+          <div class="mt-2 text-white/70 text-sm">Add details when confirmed.</div>
+        </div>
+        <div class="glass rounded-3xl p-6">
+          <div class="text-xs tracking-widest opacity-70">COMING SOON</div>
+          <div class="mt-2 text-xl font-alt">Theme markets</div>
+          <div class="mt-2 text-white/70 text-sm">Add details when confirmed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="px-6 md:px-12 pb-10">
+    <div class="max-w-[1200px] mx-auto divider pt-8 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/meta.logo.png" class="h-10" alt="Meta logo" />
+        <div class="text-xs tracking-widest opacity-70">METAMORPHO</div>
+      </div>
+
+      <div class="text-xs text-white/55 leading-relaxed">
+        © <span id="year"></span> Metamorpho. All rights reserved.
+      </div>
+
+      <div class="flex gap-6 text-xs tracking-widest opacity-70">
+        <a class="hover:opacity-100" href="/contact.html">CONTACT</a>
+        <a class="hover:opacity-100" href="/faq.html">FAQ</a>
+        <a class="hover:opacity-100" href="/navigator-login.html">NAVIGATOR</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact | Metamorpho</title>
+  <script src="https://cdn.tailwindcss.com?cache=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; }
+    body { background: #0B1722; color: #fff; }
+
+    @font-face {
+      font-family: 'MetaFont';
+      src:
+        url('/assets/fonts/MetaFont-Regular.woff2') format('woff2'),
+        url('/assets/fonts/MetaFont.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'metabold';
+      src:
+        url('/assets/fonts/metabold-Regular.woff2') format('woff2'),
+        url('/assets/fonts/metabold.otf') format('opentype');
+    }
+    body { font-family: 'MetaFont', sans-serif; }
+    .font-alt { font-family: 'metabold', sans-serif; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+    .nav-pill {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .divider { border-top: 1px solid rgba(255,255,255,0.12); }
+
+    input, textarea, select {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.20);
+      color: #fff;
+      outline: none;
+      border-radius: 16px;
+      padding: 14px 16px;
+      width: 100%;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.55); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      transition: transform .15s ease, opacity .15s ease;
+      font-family: 'metabold', sans-serif;
+      letter-spacing: .08em;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    .btn:hover { 
+      transform: translateY(-2px); opacity: 1; 
+    }
+
+    .contact-bg{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  background-image: url("assets/images/contact.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: brightness(0.4);
+}
+
+.btn {
+  background: linear-gradient(120deg, #34b29c, #d2001a);
+  background-size: 200% 100%;
+}
+
+.btn:hover {
+  background-position: 100% 0;
+}
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+<div class="contact-bg"></div>
+  <!-- ================= NAV ================= -->
+  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50">
+    <a href="/index.html" class="flex items-center gap-3">
+      <img src="/assets/images/meta.logo.png" class="h-12 md:h-16" alt="Meta logo" />
+      <span class="hidden md:block text-xs tracking-widest opacity-80">METAMORPHO</span>
+    </a>
+
+    <div class="hidden md:block nav-pill px-10 py-4 rounded-full shadow-lg">
+      <ul class="flex gap-8 text-sm tracking-wider items-center">
+        <li><a class="opacity-85 hover:opacity-100" href="/index.html">HOME</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/about.html">ABOUT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/gallery.html">GALLERY</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/metaventures.html">METAVENTURES</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/shop.html">SHOP</a></li>
+        <li><a class="opacity-100 font-alt" href="/contact.html">CONTACT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/faq.html">FAQ</a></li>
+      </ul>
+    </div>
+
+    <a href="/faq.html" class="md:hidden glass px-4 py-2 rounded-full text-xs tracking-widest">
+      FAQ
+    </a>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <section class="pt-28 md:pt-32 px-6 md:px-12">
+    <div class="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-10 items-start">
+      <div>
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-4">CONTACT</div>
+        <h1 class="text-5xl md:text-6xl font-alt leading-tight">Let’s talk.</h1>
+        <p class="mt-6 text-white/75 leading-relaxed max-w-[80ch]">
+          If you’re not sure where to start, send a message. We’ll direct you to the right campus and next step.
+        </p>
+
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a class="btn" href="/capetown.html">Cape Town Info</a>
+          <a class="btn" href="/pretoria.html">Pretoria Info</a>
+          <a class="btn" href="/faq.html">Read FAQs</a>
+          <a class="btn" href="/navigator-login.html">Navigator Login</a>
+        </div>
+
+        <div class="mt-10 glass rounded-3xl p-6 md:p-8">
+          <div class="text-sm tracking-widest opacity-70 mb-3">FAST OPTIONS</div>
+          <div class="space-y-3 text-white/75">
+            <div>
+              <div class="text-xs tracking-widest opacity-70">EMAIL</div>
+              <a class="hover:opacity-100 opacity-90" href="mailto:info@metamorpho.co.za">metamorpho@doxadeo.org</a>
+            </div>
+            <div>
+              <div class="text-xs tracking-widest opacity-70">WHATSAPP</div>
+              <a class="hover:opacity-100 opacity-90" href="https://wa.me/27615459433" target="_blank" rel="noopener">Chat on WhatsApp</a>
+            </div>
+            <div>
+              <div class="text-xs tracking-widest opacity-70">SOCIAL</div>
+              <a class="hover:opacity-100 opacity-90" href="https://www.instagram.com/meta_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Instagram</a> <br>
+              <a class="hover:opacity-100 opacity-90" href="https://www.facebook.com/metamorpho.english/" target="_blank" rel="noopener">Facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= FORM CARD ================= -->
+      <div class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-sm tracking-widest opacity-70 mb-2">SEND A MESSAGE</div>
+        <h2 class="text-2xl md:text-3xl font-alt">Contact form</h2>
+
+        <form id="contactForm" class="mt-7 space-y-4">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs tracking-widest opacity-70" for="name">NAME</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required />
+            </div>
+            <div>
+              <label class="text-xs tracking-widest opacity-70" for="role">I AM A...</label>
+              <select id="role" name="role" required>
+                <option value="" disabled selected>Select</option>
+                <option>Student</option>
+                <option>Parent / Guardian</option>
+                <option>School / Staff</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs tracking-widest opacity-70" for="email">EMAIL</label>
+              <input id="email" name="email" type="email" placeholder="name@email.com" required />
+            </div>
+            <div>
+              <label class="text-xs tracking-widest opacity-70" for="phone">PHONE (OPTIONAL)</label>
+              <input id="phone" name="phone" type="tel" placeholder="+27..." />
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs tracking-widest opacity-70" for="campus">CAMPUS (OPTIONAL)</label>
+              <select id="campus" name="campus">
+                <option value="" selected>Not sure</option>
+                <option>Cape Town</option>
+                <option>Pretoria</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs tracking-widest opacity-70" for="topic">TOPIC</label>
+              <select id="topic" name="topic" required>
+                <option value="" disabled selected>Select</option>
+                <option>Applications</option>
+                <option>Fees</option>
+                <option>Dates</option>
+                <option>Accommodation</option>
+                <option>General question</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs tracking-widest opacity-70" for="message">MESSAGE</label>
+            <textarea id="message" name="message" rows="6" placeholder="Write your message..." required></textarea>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between pt-2">
+            <button type="submit" class="btn w-full sm:w-auto">Send message</button>
+            <a id="mailFallback" class="text-xs tracking-widest opacity-80 hover:opacity-100" href="#">
+              or send via email
+            </a>
+          </div>
+
+          <!-- success message -->
+          <div id="successBox" class="hidden mt-4 glass rounded-2xl p-4 text-white/80">
+            ✅ Message ready. On deployment we’ll connect this to a backend. For now use the email fallback link.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="px-6 md:px-12 mt-16 md:mt-24 pb-10">
+    <div class="max-w-[1200px] mx-auto divider pt-8 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/meta.logo.png" class="h-10" alt="Meta logo" />
+        <div class="text-xs tracking-widest opacity-70">METAMORPHO</div>
+      </div>
+
+      <div class="text-xs text-white/55 leading-relaxed">
+        © <span id="year"></span> Metamorpho. All rights reserved.
+      </div>
+
+      <div class="flex gap-6 text-xs tracking-widest opacity-70">
+        <a class="hover:opacity-100" href="/faq.html">FAQ</a>
+        <a class="hover:opacity-100" href="/navigator-login.html">NAVIGATOR</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const form = document.getElementById("contactForm");
+    const mailFallback = document.getElementById("mailFallback");
+    const successBox = document.getElementById("successBox");
+
+    function encode(s) { return encodeURIComponent(s || ""); }
+
+    function updateMailto() {
+      const name = document.getElementById("name").value;
+      const role = document.getElementById("role").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const campus = document.getElementById("campus").value;
+      const topic = document.getElementById("topic").value;
+      const message = document.getElementById("message").value;
+
+      const subject = `[Meta Website] ${topic || "Question"} — ${name || "Unknown"}`;
+      const body =
+`Name: ${name}
+Role: ${role}
+Email: ${email}
+Phone: ${phone}
+Campus: ${campus}
+
+Message:
+${message}
+`;
+
+      const href = `mailto:info@metamorpho.co.za?subject=${encode(subject)}&body=${encode(body)}`;
+      mailFallback.href = href;
+    }
+
+    form.addEventListener("input", updateMailto);
+    updateMailto();
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      updateMailto();
+      successBox.classList.remove("hidden");
+      successBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  </script>
+</body>
+</html>

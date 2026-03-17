@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Navigator Login | Metamorpho</title>
+  <script src="https://cdn.tailwindcss.com?cache=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; }
+
+    :root{
+      --bg: #0f1b27;
+      --bg-2: #122131;
+      --panel: #152435;
+      --panel-2: #17293c;
+      --text: #f4f7fb;
+      --muted: rgba(255,255,255,0.68);
+      --line: rgba(255,255,255,0.05);
+
+      --shadow-dark: rgba(5, 10, 16, 0.72);
+      --shadow-light: rgba(255, 255, 255, 0.04);
+
+      --raise:
+        10px 10px 24px var(--shadow-dark),
+        -8px -8px 18px var(--shadow-light);
+
+      --raise-soft:
+        8px 8px 18px rgba(5,10,16,0.58),
+        -6px -6px 14px rgba(255,255,255,0.03);
+
+      --inset:
+        inset 8px 8px 16px rgba(5,10,16,0.62),
+        inset -5px -5px 10px rgba(255,255,255,0.03);
+
+      --inset-soft:
+        inset 5px 5px 12px rgba(5,10,16,0.5),
+        inset -4px -4px 8px rgba(255,255,255,0.025);
+    }
+
+    body {
+  background: linear-gradient(145deg, #17283a, #122031);
+  color: var(--text);
+  font-family: 'MetaFont', sans-serif;
+}
+
+    @font-face {
+      font-family: 'MetaFont';
+      src:
+        url('/assets/fonts/MetaFont-Regular.woff2') format('woff2'),
+        url('/assets/fonts/MetaFont.otf') format('opentype');
+    }
+
+    @font-face {
+      font-family: 'metabold';
+      src:
+        url('/assets/fonts/metabold-Regular.woff2') format('woff2'),
+        url('/assets/fonts/metabold.otf') format('opentype');
+    }
+
+    .font-alt { font-family: 'metabold', sans-serif; }
+
+    .neo-surface {
+      background: linear-gradient(145deg, #17283a, #122031);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: var(--raise);
+    }
+
+    .neo-surface-soft {
+      background: linear-gradient(145deg, #162638, #132233);
+      border: 1px solid rgba(255,255,255,0.025);
+      box-shadow: var(--raise-soft);
+    }
+
+    .neo-inset {
+      background: linear-gradient(145deg, #132233, #17283a);
+      border: 1px solid rgba(255,255,255,0.025);
+      box-shadow: var(--inset);
+    }
+
+    .neo-inset-soft {
+      background: linear-gradient(145deg, #132233, #17283a);
+      border: 1px solid rgba(255,255,255,0.02);
+      box-shadow: var(--inset-soft);
+    }
+
+    .nav-pill {
+      background: linear-gradient(145deg, #16273a, #112031);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow:
+        8px 8px 20px rgba(5,10,16,0.55),
+        -6px -6px 14px rgba(255,255,255,0.03);
+    }
+
+    .divider {
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.03);
+      color: #fff;
+      outline: none;
+      background: linear-gradient(145deg, #132233, #17283a);
+      box-shadow:
+        inset 8px 8px 16px rgba(5,10,16,0.58),
+        inset -5px -5px 10px rgba(255,255,255,0.025);
+      transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: rgba(52,178,156,0.28);
+      box-shadow:
+        inset 8px 8px 16px rgba(5,10,16,0.58),
+        inset -5px -5px 10px rgba(255,255,255,0.025),
+        0 0 0 1px rgba(52,178,156,0.12),
+        0 0 24px rgba(52,178,156,0.08);
+    }
+
+    input::placeholder {
+      color: rgba(255,255,255,0.42);
+    }
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #34b29c;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.03);
+      background: linear-gradient(145deg, #182b3f, #122031);
+      box-shadow:
+        8px 8px 18px rgba(5,10,16,0.62),
+        -6px -6px 14px rgba(255,255,255,0.03);
+      transition:
+        transform .16s ease,
+        box-shadow .16s ease,
+        border-color .16s ease,
+        color .16s ease;
+      font-family: 'metabold', sans-serif;
+      letter-spacing: .08em;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #fff;
+      opacity: .98;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(52,178,156,0.22);
+      box-shadow:
+        12px 12px 22px rgba(5,10,16,0.68),
+        -8px -8px 16px rgba(255,255,255,0.035),
+        0 0 22px rgba(52,178,156,0.08);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow:
+        inset 6px 6px 12px rgba(5,10,16,0.55),
+        inset -4px -4px 8px rgba(255,255,255,0.02);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.03);
+      background: linear-gradient(145deg, #17283a, #122031);
+      box-shadow:
+        7px 7px 16px rgba(5,10,16,0.52),
+        -5px -5px 12px rgba(255,255,255,0.03);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .94;
+      white-space: nowrap;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .muted { color: var(--muted); }
+
+    .link-soft {
+      transition: opacity .15s ease, color .15s ease;
+    }
+
+    .link-soft:hover {
+      opacity: 1;
+      color: #34b29c;
+    }
+
+    .login-shell {
+      position: relative;
+    }
+
+    .login-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 1.75rem;
+      pointer-events: none;
+      box-shadow:
+        inset 1px 1px 0 rgba(255,255,255,0.03),
+        inset -1px -1px 0 rgba(0,0,0,0.18);
+    }
+
+    .status-box {
+      background: linear-gradient(145deg, #132233, #17283a);
+      border: 1px solid rgba(255,255,255,0.025);
+      box-shadow: var(--inset-soft);
+    }
+
+    .btn {
+  background: linear-gradient(120deg, #34b29c, #d2001a);
+  background-size: 200% 100%;
+}
+
+.btn:hover {
+  background-position: 100% 0;
+}
+  </style>
+</head>
+
+<body class="overflow-x-hidden min-h-screen flex flex-col">
+
+  <!-- ================= NAV ================= -->
+  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50">
+    <a href="/index.html" class="flex items-center gap-3">
+      <img src="/assets/images/meta.logo.png" class="h-12 md:h-16" alt="Meta logo" />
+      <span class="hidden md:block text-xs tracking-widest opacity-80">METAMORPHO</span>
+    </a>
+
+    <div class="hidden md:block nav-pill px-10 py-4 rounded-full">
+      <ul class="flex gap-8 text-sm tracking-wider items-center">
+        <li><a class="opacity-85 hover:opacity-100" href="/index.html">HOME</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/about.html">ABOUT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/gallery.html">GALLERY</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/metaventures.html">METAVENTURES</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/market.html">MARKET</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/shop.html">SHOP</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/contact.html">CONTACT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/faq.html">FAQ</a></li>
+      </ul>
+    </div>
+
+    <a href="/contact.html" class="md:hidden neo-surface px-4 py-2 rounded-full text-xs tracking-widest">
+      CONTACT
+    </a>
+  </nav>
+
+  <!-- ================= CONTENT ================= -->
+  <section class="flex-1 pt-28 md:pt-32 px-6 md:px-12 pb-16 md:pb-24">
+    <div class="max-w-[1100px] mx-auto grid md:grid-cols-2 gap-8 items-start">
+
+      <!-- Left -->
+      <div>
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-4">NAVIGATOR</div>
+        <h1 class="text-5xl md:text-6xl font-alt leading-tight">Login</h1>
+        <p class="mt-6 text-white/75 leading-relaxed max-w-[85ch]">
+          Navigator is the student portal for resources, schedules, announcements, and tools.
+          If you don’t have an account yet, contact the team.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <span class="pill">Resources</span>
+          <span class="pill">Schedule</span>
+          <span class="pill">Announcements</span>
+          <span class="pill">Community</span>
+        </div>
+
+        <div class="mt-10 neo-surface rounded-3xl p-6 md:p-8">
+          <div class="text-sm tracking-widest opacity-70 mb-3">NEED ACCESS?</div>
+          <p class="text-white/70 leading-relaxed">
+            If you are a student and you can’t log in, contact us and we’ll help you get set up.
+          </p>
+          <div class="mt-5 flex flex-col sm:flex-row gap-3">
+            <a class="btn w-full sm:w-auto" href="/contact.html">Contact</a>
+            <a class="btn w-full sm:w-auto" href="/faq.html">FAQs</a>
+          </div>
+
+          <div class="mt-6 text-xs text-white/55">
+            Note: This is a front-end login screen for now. We’ll connect real authentication later.
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Login card -->
+      <div class="neo-surface rounded-3xl p-6 md:p-10 login-shell">
+        <div class="text-sm tracking-widest opacity-70 mb-2">WELCOME BACK</div>
+        <h2 class="text-2xl md:text-3xl font-alt">Sign in</h2>
+        <p class="mt-3 text-white/70 leading-relaxed">
+          Use the credentials you received from the team.
+        </p>
+
+        <form id="loginForm" class="mt-7 space-y-4">
+          <div>
+            <label class="text-xs tracking-widest opacity-70" for="email">EMAIL</label>
+            <input id="email" name="email" type="email" placeholder="name@email.com" required />
+          </div>
+
+          <div>
+            <label class="text-xs tracking-widest opacity-70" for="password">PASSWORD</label>
+            <input id="password" name="password" type="password" placeholder="••••••••" required />
+          </div>
+
+          <div class="flex items-center justify-between text-xs tracking-widest opacity-80 gap-4">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input id="remember" type="checkbox" />
+              REMEMBER ME
+            </label>
+
+            <button id="forgotBtn" type="button" class="underline opacity-80 link-soft">
+              FORGOT PASSWORD?
+            </button>
+          </div>
+
+          <button type="submit" class="btn w-full">Login</button>
+
+          <div id="loginError" class="hidden status-box rounded-2xl p-4 text-white/80">
+            ❌ Login failed (demo). For now this page just routes you to Navigator. Real authentication comes later.
+          </div>
+
+          <div class="text-xs text-white/55 leading-relaxed">
+            By logging in you agree to use Navigator respectfully and keep content private.
+          </div>
+        </form>
+
+        <div class="divider my-7"></div>
+
+        <!-- Forgot password panel -->
+        <div id="forgotPanel" class="hidden">
+          <div class="text-sm tracking-widest opacity-70 mb-2">RESET</div>
+          <h3 class="text-xl font-alt">Request a password reset</h3>
+          <p class="mt-2 text-white/70 text-sm leading-relaxed">
+            For now this will generate an email to the team. Later we’ll automate this.
+          </p>
+
+          <form id="resetForm" class="mt-4 space-y-4">
+            <div>
+              <label class="text-xs tracking-widest opacity-70" for="resetEmail">EMAIL</label>
+              <input id="resetEmail" type="email" placeholder="name@email.com" required />
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button class="btn w-full sm:w-auto" type="submit">Send Request</button>
+              <button id="backToLogin" class="btn w-full sm:w-auto" type="button">Back</button>
+            </div>
+            <a id="resetMailto" class="text-xs tracking-widest underline opacity-80 link-soft" href="#">
+              If nothing opens, click here to email the request
+            </a>
+            <div id="resetSuccess" class="hidden status-box rounded-2xl p-4 text-white/80">
+              ✅ Email prepared. If your email client didn’t open, use the link above.
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="px-6 md:px-12 pb-10">
+    <div class="max-w-[1200px] mx-auto divider pt-8 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/meta.logo.png" class="h-10" alt="Meta logo" />
+        <div class="text-xs tracking-widest opacity-70">METAMORPHO</div>
+      </div>
+
+      <div class="text-xs text-white/55 leading-relaxed">
+        © <span id="year"></span> Metamorpho. All rights reserved.
+      </div>
+
+      <div class="flex gap-6 text-xs tracking-widest opacity-70">
+        <a class="hover:opacity-100" href="/contact.html">CONTACT</a>
+        <a class="hover:opacity-100" href="/faq.html">FAQ</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const loginForm = document.getElementById("loginForm");
+    const loginError = document.getElementById("loginError");
+
+    const forgotBtn = document.getElementById("forgotBtn");
+    const forgotPanel = document.getElementById("forgotPanel");
+    const backToLogin = document.getElementById("backToLogin");
+
+    const resetForm = document.getElementById("resetForm");
+    const resetEmail = document.getElementById("resetEmail");
+    const resetMailto = document.getElementById("resetMailto");
+    const resetSuccess = document.getElementById("resetSuccess");
+
+    function enc(s){ return encodeURIComponent(s || ""); }
+
+    // Demo login: route to navigator.html (placeholder)
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      localStorage.setItem("navigator_demo_user", email || "student@metamorpho.co.za");
+
+      window.location.href = "/navigator.html";
+    });
+
+    // Forgot password UI
+    forgotBtn.addEventListener("click", () => {
+      forgotPanel.classList.remove("hidden");
+      loginForm.classList.add("hidden");
+      resetEmail.value = document.getElementById("email").value || "";
+      resetSuccess.classList.add("hidden");
+      updateResetMailto();
+    });
+
+    backToLogin.addEventListener("click", () => {
+      forgotPanel.classList.add("hidden");
+      loginForm.classList.remove("hidden");
+      resetSuccess.classList.add("hidden");
+    });
+
+    function updateResetMailto() {
+      const to = "info@metamorpho.co.za";
+      const emailVal = (resetEmail.value || "").trim();
+      const subject = "[Navigator] Password reset request";
+      const body =
+`Hi team,
+
+Please help me reset my Navigator password.
+
+Email: ${emailVal}
+
+Thanks.`;
+
+      resetMailto.href = `mailto:${to}?subject=${enc(subject)}&body=${enc(body)}`;
+    }
+
+    resetEmail.addEventListener("input", updateResetMailto);
+    updateResetMailto();
+
+    resetForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      updateResetMailto();
+      window.location.href = resetMailto.href;
+      resetSuccess.classList.remove("hidden");
+      resetSuccess.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Cape Town Campus | Metamorpho</title>
+  <script src="https://cdn.tailwindcss.com?cache=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    @font-face {
+      font-family: 'MetaFont';
+      src:
+        url('/assets/fonts/MetaFont-Regular.woff2') format('woff2'),
+        url('/assets/fonts/MetaFont.otf') format('opentype');
+    }
+
+    @font-face {
+      font-family: 'metabold';
+      src:
+        url('/assets/fonts/metabold-Regular.woff2') format('woff2'),
+        url('/assets/fonts/metabold.otf') format('opentype');
+    }
+
+    body {
+      font-family: 'MetaFont', sans-serif;
+      background: #193347;
+      color: white;
+    }
+
+    .font-alt {
+      font-family: 'metabold', sans-serif;
+    }
+
+    #fees {
+      overflow: visible;
+    }
+
+    /* ---- Base glass ---- */
+    .glass {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    /* ---- Stage (invisible wrapper) ---- */
+    .pill-stage {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .admission-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      border-radius: 9999px;
+      overflow: hidden;
+      color: white;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+
+      border: 1px solid rgba(255, 255, 255, 0.16);
+
+      background: linear-gradient(120deg, #34b29c, #d2001a);
+
+      background-size: 300% 100%;
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+
+      transition:
+        transform .22s ease,
+        background-position .45s ease,
+        box-shadow .22s ease;
+
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .admission-btn:hover {
+      transform: translateY(-2px);
+      background-position: 100% 50%;
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .team-stage {
+      perspective: 1200px;
+      overflow: visible;
+    }
+
+    #teamDeck {
+      position: relative;
+      height: 760px;
+      /* gives room for expanded hovered card */
+      overflow: visible;
+    }
+
+    .team-card {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(520px, 86vw);
+      height: 520px;
+      border-radius: 28px;
+      overflow: hidden;
+      transition:
+        transform 520ms cubic-bezier(0.2, 0.9, 0.2, 1),
+        opacity 520ms ease,
+        filter 520ms ease,
+        height 420ms cubic-bezier(0.2, 0.9, 0.2, 1),
+        width 420ms cubic-bezier(0.2, 0.9, 0.2, 1),
+        box-shadow 420ms ease;
+      will-change: transform, opacity, filter, height, width;
+    }
+
+    .team-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      transform: scale(1.03);
+      transition: transform 420ms ease;
+    }
+
+    .team-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+          rgba(0, 0, 0, 0.82) 0%,
+          rgba(0, 0, 0, 0.48) 42%,
+          rgba(0, 0, 0, 0.10) 68%,
+          rgba(0, 0, 0, 0.0) 100%);
+    }
+
+    .team-meta {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 18px;
+      transition: bottom 320ms ease;
+    }
+
+    .team-role {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .team-bio {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(10px);
+      transition:
+        max-height 420ms ease,
+        opacity 280ms ease,
+        transform 280ms ease;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 14px;
+      line-height: 1.55;
+      margin-top: 10px;
+      padding-right: 6px;
+    }
+
+    /* only let the FRONT card expand */
+    .team-card[data-pos="0"]:hover {
+      height: 690px;
+      width: min(560px, 90vw);
+      transform: translateX(calc(-50% + 24px)) translateY(0px) scale(1.02);
+      z-index: 60;
+      box-shadow: 0 45px 120px rgba(0, 0, 0, 0.55);
+    }
+
+    .team-card[data-pos="0"]:hover .team-photo {
+      transform: scale(1.06);
+    }
+
+    .team-card[data-pos="0"]:hover .team-meta {
+      bottom: 24px;
+    }
+
+    .team-card[data-pos="0"]:hover .team-bio {
+      max-height: 220px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* existing positions */
+    .team-card[data-pos="0"] {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateX(-50%) translateY(0px) scale(1) rotateY(0deg);
+      z-index: 30;
+    }
+
+    .team-card[data-pos="1"] {
+      opacity: 0.55;
+      filter: blur(6px);
+      transform: translateX(calc(-50% + 260px)) translateY(18px) scale(0.88) rotateY(-18deg);
+      z-index: 20;
+    }
+
+    .team-card[data-pos="-1"] {
+      opacity: 0.55;
+      filter: blur(6px);
+      transform: translateX(calc(-50% - 260px)) translateY(18px) scale(0.88) rotateY(18deg);
+      z-index: 20;
+    }
+
+    .team-card[data-pos="2"] {
+      opacity: 0.28;
+      filter: blur(10px);
+      transform: translateX(calc(-50% + 460px)) translateY(32px) scale(0.78) rotateY(-26deg);
+      z-index: 10;
+    }
+
+    .team-card[data-pos="-2"] {
+      opacity: 0.28;
+      filter: blur(10px);
+      transform: translateX(calc(-50% - 460px)) translateY(32px) scale(0.78) rotateY(26deg);
+      z-index: 10;
+    }
+
+    .team-card[data-pos="3"],
+    .team-card[data-pos="-3"],
+    .team-card[data-pos="4"],
+    .team-card[data-pos="-4"] {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .team-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 9999px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* ================= FEES SECTION ================= */
+    .fees-vignette {
+      position: relative;
+    }
+
+    .fees-vignette::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      pointer-events: none;
+      background:
+        radial-gradient(1200px 600px at 50% 10%, rgba(255, 255, 255, 0.06), transparent 60%),
+        radial-gradient(900px 600px at 20% 70%, rgba(255, 255, 255, 0.04), transparent 60%),
+        radial-gradient(900px 600px at 80% 70%, rgba(255, 255, 255, 0.04), transparent 60%);
+      z-index: 0;
+    }
+
+    .big-blur-title {
+      position: absolute;
+      top: -90px;
+      left: 0;
+      right: 0;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+      z-index: 5;
+      overflow: visible;
+    }
+
+    .big-blur-title h2 {
+      font-family: 'metabold', sans-serif;
+      font-size: clamp(56px, 10vw, 120px);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: #34b29c;
+      text-shadow:
+        0 0 40px rgba(52, 178, 156, 0.25),
+        0 20px 100px rgba(52, 178, 156, 0.35),
+        0 40px 160px rgba(52, 178, 156, 0.22);
+    }
+
+    .price-card {
+      border-radius: 26px;
+      padding: 26px;
+      transition: transform 260ms cubic-bezier(0.2, 0.9, 0.2, 1),
+        box-shadow 260ms ease,
+        border-color 260ms ease;
+      overflow: hidden;
+      position: relative;
+      min-height: 520px;
+    }
+
+    .price-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(52, 178, 156, 0.45);
+      box-shadow:
+        0 50px 120px rgba(0, 0, 0, 0.70),
+        0 0 60px rgba(52, 178, 156, 0.18);
+    }
+
+    .price-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background:
+        radial-gradient(420px 220px at 30% 10%, rgba(52, 178, 156, 0.28), transparent 60%),
+        radial-gradient(520px 260px at 70% 90%, rgba(52, 178, 156, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .tick {
+      width: 22px;
+      height: 22px;
+      border-radius: 9999px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      flex: 0 0 auto;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      border-radius: 9999px;
+      padding: 14px 18px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+    }
+
+    /* ===== Button palette ===== */
+    .btn-teal {
+      background: #34b29c;
+      color: #081015;
+      border: 1px solid #34b29c;
+      transition: all 300ms ease;
+    }
+
+    .btn-teal:hover {
+      background: transparent;
+      color: #34b29c;
+      border: 1px solid #34b29c;
+    }
+
+    .btn-teal-inverse {
+      background: transparent;
+      color: #34b29c;
+      border: 1px solid #34b29c;
+      transition: all 300ms ease;
+    }
+
+    .btn-teal-inverse:hover {
+      background: #34b29c;
+      color: #081015;
+      border: 1px solid #34b29c;
+    }
+
+    /* Big prices color */
+    .price-big {
+      color: #34b29c;
+    }
+
+    .camp-video-card {
+      transition: transform 260ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 260ms ease;
+    }
+
+    .camp-video-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 35px 90px rgba(0, 0, 0, 0.4);
+    }
+
+    .capetown-hero {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      background-image: url("assets/images/capetown-hero.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      filter: brightness(0.4);
+    }
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+  <div class="capetown-hero"></div>
+
+  <nav class="fixed top-0 w-full z-50 flex items-center justify-between px-6 md:px-10 py-5 md:py-6">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="/assets/images/meta.logo.png" class="h-12" alt="Meta logo" />
+      <span class="text-sm tracking-widest opacity-80">BACK HOME</span>
+    </a>
+
+    <div class="text-sm tracking-widest opacity-80">CAPE TOWN CAMPUS</div>
+  </nav>
+
+  <!-- 1) TITLE PAGE -->
+  <section class="min-h-screen flex items-center justify-center px-6 md:px-10 pt-28">
+    <div class="w-full max-w-[1200px] grid md:grid-cols-2 gap-10 items-center">
+
+      <div>
+        <h1 class="text-6xl md:text-7xl font-alt leading-tight">
+          Cape Town<br />Campus
+        </h1>
+
+        <p class="mt-6 text-lg text-white/75 leading-relaxed max-w-[52ch]">
+          The Cape Town Campus is based in Strand, Helderberg — a coastal environment ideal for students to build a
+          healthy lifestyle. Students live within walking distance of the ocean, combining structured development with
+          the challenge and calm of the sea.
+        </p>
+
+        <div class="mt-10 flex gap-6">
+          <a href="#enroll"
+            class="rounded-full px-16 py-8 text-2xl font-alt transform hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(52,178,156,0.22)] btn-teal">
+            Enroll
+          </a>
+
+          <a href="#fees"
+            class="rounded-full px-16 py-8 text-2xl font-alt transform hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(52,178,156,0.22)] btn-teal-inverse">
+            Fees
+          </a>
+        </div>
+      </div>
+
+      <div class="glass heavy-shadow rounded-3xl overflow-hidden">
+        <img src="/assets/images/capetown-hero.jpg" alt="Cape Town campus" class="w-full h-[420px] object-cover" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ENROLL -->
+  <section id="enroll" class="px-6 md:px-10 py-20">
+    <div class="w-full max-w-[1200px] mx-auto">
+
+      <h2 class="text-5xl font-alt mb-6">Enroll</h2>
+      <p class="text-white/75 text-lg leading-relaxed max-w-[70ch] mb-10">
+        How it works: Choose an Admission Day, register on ChurchSuite, and attend. Admission Day attendance is
+        compulsory —
+        that is where the interview will take place.
+      </p>
+
+      <!-- Steps -->
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
+        <div class="glass rounded-3xl p-6 min-h-[140px]">
+          <div class="text-sm tracking-widest opacity-70">STEP 1</div>
+          <div class="text-xl font-alt mt-2">Choose a day</div>
+        </div>
+        <div class="glass rounded-3xl p-6 min-h-[140px]">
+          <div class="text-sm tracking-widest opacity-70">STEP 2</div>
+          <div class="text-xl font-alt mt-2">Register</div>
+        </div>
+        <div class="glass rounded-3xl p-6 min-h-[140px]">
+          <div class="text-sm tracking-widest opacity-70">STEP 3</div>
+          <div class="text-xl font-alt mt-2">Attend</div>
+        </div>
+        <div class="glass rounded-3xl p-6 min-h-[140px]">
+          <div class="text-sm tracking-widest opacity-70">STEP 4</div>
+          <div class="text-xl font-alt mt-2">Next Steps</div>
+        </div>
+      </div>
+
+      <!-- Date buttons -->
+      <div class="flex flex-wrap justify-center gap-4 md:gap-5 mb-12">
+        <a href="https://doxadeobb.churchsuite.com/events/gzekbzyx" target="_blank" rel="noopener"
+          class="admission-btn">
+          Fri 17 Apr 2026 · 14:30
+        </a>
+        <a href="https://doxadeobb.churchsuite.com/events/am48uknx" target="_blank" rel="noopener"
+          class="admission-btn">
+          Fri 15 May 2026 · 14:30
+        </a>
+        <a href="https://doxadeobb.churchsuite.com/events/xttfk95n" target="_blank" rel="noopener"
+          class="admission-btn">
+          Fri 19 Jun 2026 · 14:30
+        </a>
+        <a href="https://doxadeobb.churchsuite.com/events/lowvjvxt" target="_blank" rel="noopener"
+          class="admission-btn">
+          Fri 17 Jul 2026 · 14:30
+        </a>
+        <a href="https://doxadeobb.churchsuite.com/events/uzpo4qcz" target="_blank" rel="noopener"
+          class="admission-btn">
+          Fri 14 Aug 2026 · 14:30
+        </a>
+        <a href="https://doxadeobb.churchsuite.com/events/ow82ssko" target="_blank" rel="noopener"
+          class="admission-btn">
+          Fri 25 Sep 2026 · 14:30
+        </a>
+        <a href="https://doxadeobb.churchsuite.com/events/coil2wxh" target="_blank" rel="noopener"
+          class="admission-btn">
+          Fri 23 Oct 2026 · 14:30
+        </a>
+        <a href="https://doxadeobb.churchsuite.com/events/tluzi3x6" target="_blank" rel="noopener"
+          class="admission-btn">
+          Fri 20 Nov 2026 · 14:30
+        </a>
+        <a href="https://doxadeobb.churchsuite.com/events/imwirejp" target="_blank" rel="noopener"
+          class="admission-btn">
+          Fri 04 Dec 2026 · 14:30
+        </a>
+        <a href="https://doxadeobb.churchsuite.com/events/jxl7sotd" target="_blank" rel="noopener"
+          class="admission-btn">
+          Fri 11 Dec 2026 · 14:30
+        </a>
+        <a href="mailto:metamorphocpt@doxadeo.org?subject=Metamorpho%20Personal%20Interview%20Request&body=Hi%20Meta%20Team,%0A%0AI%20cannot%20attend%20the%20scheduled%20Admission%20Days%20and%20would%20like%20to%20request%20a%20personal%20interview.%0A%0AName:%0ACity:%0APhone:%0A%0AThank%20you."
+          class="admission-btn special-date">
+          Can't make these dates? Request a one-on-one
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!--CAMP VIDEOS-->
+  <section id="camp-videos" class="px-10 py-24">
+    <div class="w-full max-w-[1400px] mx-auto">
+
+      <div class="text-center mb-14">
+        <h2 class="text-5xl md:text-6xl font-alt">See the Camps in Action</h2>
+        <p class="text-white/70 text-lg mt-4 max-w-[750px] mx-auto leading-relaxed">
+          Every camp carries its own challenge, atmosphere, and purpose. Explore each one below. (videos under development, coming very soon)
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+        <!-- 1 -->
+        <div class="glass camp-video-card rounded-[30px] p-5 border border-white/15">
+          <div class="mb-4">
+            <div class="text-xs tracking-[0.28em] uppercase text-white/50 mb-2">Camp 01</div>
+            <h3 class="text-2xl font-alt">Orientation</h3>
+          </div>
+          <div class="aspect-video rounded-[22px] overflow-hidden">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_1" title="Orientation Camp"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="glass camp-video-card rounded-[30px] p-5 border border-white/15">
+          <div class="mb-4">
+            <div class="text-xs tracking-[0.28em] uppercase text-white/50 mb-2">Camp 02</div>
+            <h3 class="text-2xl font-alt">Gung Ho</h3>
+          </div>
+          <div class="aspect-video rounded-[22px] overflow-hidden">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_2" title="Gung Ho Camp"
+              frameborder="0" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="glass camp-video-card rounded-[30px] p-5 border border-white/15">
+          <div class="mb-4">
+            <div class="text-xs tracking-[0.28em] uppercase text-white/50 mb-2">Camp 03</div>
+            <h3 class="text-2xl font-alt">Hiking Trail</h3>
+          </div>
+          <div class="aspect-video rounded-[22px] overflow-hidden">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_3" title="Hiking Trail Camp"
+              frameborder="0" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="glass camp-video-card rounded-[30px] p-5 border border-white/15">
+          <div class="mb-4">
+            <div class="text-xs tracking-[0.28em] uppercase text-white/50 mb-2">Camp 04</div>
+            <h3 class="text-2xl font-alt">High Ropes</h3>
+          </div>
+          <div class="aspect-video rounded-[22px] overflow-hidden">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_4" title="High Ropes Camp"
+              frameborder="0" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="glass camp-video-card rounded-[30px] p-5 border border-white/15">
+          <div class="mb-4">
+            <div class="text-xs tracking-[0.28em] uppercase text-white/50 mb-2">Camp 05</div>
+            <h3 class="text-2xl font-alt">Worldview</h3>
+          </div>
+          <div class="aspect-video rounded-[22px] overflow-hidden">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_5" title="Worldview Camp"
+              frameborder="0" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="glass camp-video-card rounded-[30px] p-5 border border-white/15">
+          <div class="mb-4">
+            <div class="text-xs tracking-[0.28em] uppercase text-white/50 mb-2">Camp 06</div>
+            <h3 class="text-2xl font-alt">Outreach</h3>
+          </div>
+          <div class="aspect-video rounded-[22px] overflow-hidden">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_6" title="Outreach Camp"
+              frameborder="0" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="min-h-screen px-6 md:px-10 py-24 z-20 overflow-visible">
+    <div class="w-full max-w-[1200px] mx-auto">
+
+      <h2 class="text-5xl font-alt mb-6">Meet the Team</h2>
+      <p class="text-white/75 max-w-[70ch] leading-relaxed mb-12 text-4xl">
+        The leaders behind the mission.
+      </p>
+
+      <div class="team-stage relative h-[600px]">
+
+        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between z-40 px-2">
+          <button id="teamPrev" class="glass team-btn" aria-label="Previous">‹</button>
+          <button id="teamNext" class="glass team-btn" aria-label="Next">›</button>
+        </div>
+
+        <div id="teamDeck" class="relative h-[520px]">
+
+          <div class="glass heavy-shadow team-card" data-index="0">
+            <img class="team-photo" src="assets/images/innesnikita.jpeg" alt="Innes & Nikita">
+            <div class="team-overlay"></div>
+            <div class="team-meta">
+              <div class="text-2xl font-alt">Innes & Nikita</div>
+              <div class="team-role">Metamorpho Campus Leaders</div>
+              <div class="text-white/70 text-sm mt-2 max-w-[52ch]">
+                Leading the culture and direction of the campus.
+              </div>
+
+              <div class="team-bio">
+                Innes and Nikita lead the Cape Town campus with a heart for discipleship,
+                growth, and healthy community. They help shape the rhythm, vision, and
+                culture of Metamorpho, walking closely with students through both the
+                practical and spiritual parts of the year.
+              </div>
+            </div>
+        </div>
+
+        <div class="glass heavy-shadow team-card" data-index="1">
+          <img class="team-photo" src="/assets/images/duncan.jpeg" alt="Duncan Du Preez">
+          <div class="team-overlay"></div>
+          <div class="team-meta">
+            <div class="text-2xl font-alt">Duncan Du Preez</div>
+            <div class="text-white/75">Navigator</div>
+            <div class="text-white/70 text-sm mt-2 max-w-[52ch]">
+              Pioneering the creative limits
+            </div>
+
+            <div class="team-bio">
+              Duncan is a risk-taking, calculating, and engaging individual. 
+              He loves to explore the meaning behind everything and the motivations of the people around him. 
+              He loves to create and innovate. 
+              He strives to put others above himself and to glorify God in everything he does.
+            </div>
+          </div>
+        </div>
+
+        <div class="glass heavy-shadow team-card" data-index="2">
+          <img class="team-photo" src="/assets/images/lizzard.jpeg" alt="Lizomé Krige">
+          <div class="team-overlay"></div>
+          <div class="team-meta">
+            <div class="text-2xl font-alt">Lizomé Krige</div>
+            <div class="text-white/75">Navigator</div>
+            <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+          </div>
+        </div>
+
+        <div class="glass heavy-shadow team-card" data-index="3">
+          <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="team-overlay"></div>
+          <div class="team-meta">
+            <div class="text-2xl font-alt">Annika Van Eyk</div>
+            <div class="text-white/75">Intern</div>
+            <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="teamDots" class="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 z-40"></div>
+    </div>
+
+    <div class="h-10"></div>
+    </div>
+  </section>
+
+  <!-- FEES -->
+  <section id="fees" class="bg-transparent relative min-h-screen pt-40 pb-24 z-40 mt-16 overflow-visible">
+    <div class="big-blur-title">
+      <h2>Fees</h2>
+    </div>
+
+    <div class="relative max-w-[1250px] mx-auto px-8 z-10">
+
+      <div class="mt-16 grid lg:grid-cols-3 gap-8">
+
+        <section class="glass price-card border border-white/15">
+          <div class="relative z-10">
+            <div class="text-white/70 tracking-widest text-sm">COURSE FEES</div>
+            <div class="mt-2 text-5xl font-alt price-big">R45 000</div>
+            <div class="text-white/70 mt-2">2026 • excludes accommodation</div>
+
+            <div class="mt-8 space-y-4">
+              <div class="flex gap-3">
+                <div class="tick">✓</div>
+                <div class="text-white/80">All classes & camps</div>
+              </div>
+              <div class="flex gap-3">
+                <div class="tick">✓</div>
+                <div class="text-white/80">Notebook</div>
+              </div>
+              <div class="flex gap-3">
+                <div class="tick">✓</div>
+                <div class="text-white/80">T-shirt</div>
+              </div>
+              <div class="flex gap-3">
+                <div class="tick">✓</div>
+                <div class="text-white/80">USB with videos of the year</div>
+              </div>
+            </div>
+
+            <div class="mt-10 text-white/65 text-sm leading-relaxed">
+              Final fees are confirmed after budgeting and supplier communication; inflation-related increases can be
+              expected.
+            </div>
+
+            <a href="#enroll" class="cta mt-10 bg-white text-black">Apply / Enroll</a>
+          </div>
+        </section>
+
+        <section class="glass price-card border border-white/15">
+          <div class="relative z-10">
+            <div class="text-white/70 tracking-widest text-sm">PAYMENT PLAN</div>
+            <div class="mt-2 text-5xl font-alt price-big">R4 000</div>
+            <div class="text-white/70 mt-2">Registration fee</div>
+
+            <div class="mt-8 space-y-4">
+              <div class="flex gap-3">
+                <div class="tick">✓</div>
+                <div class="text-white/80">Pay <span class="text-white font-semibold">R4 000</span> two weeks after
+                  acceptance</div>
+              </div>
+              <div class="flex gap-3">
+                <div class="tick">✓</div>
+                <div class="text-white/80">If the fee is not paid, student is placed on the <span
+                    class="text-white font-semibold">waiting list</span></div>
+              </div>
+              <div class="flex gap-3">
+                <div class="tick">✓</div>
+                <div class="text-white/80">Remaining fees paid off in <span class="text-white font-semibold">10
+                    months</span> (Feb 1 → Nov 1)</div>
+              </div>
+              <div class="flex gap-3">
+                <div class="tick">✓</div>
+                <div class="text-white/80">Payment options: <span class="text-white font-semibold">Debit order</span> or
+                  <span class="text-white font-semibold">Once-off</span></div>
+              </div>
+            </div>
+
+            <div class="mt-10 text-white/65 text-sm leading-relaxed">
+              The commune life is part of the growth process and contributes to the development of healthy relationships
+              and self-reliance.
+            </div>
+
+            <a href="#enroll" class="cta mt-10 bg-white text-black">Start admission</a>
+          </div>
+        </section>
+
+        <section class="glass price-card border border-white/15">
+          <div class="relative z-10">
+            <div class="text-white/70 tracking-widest text-sm">ACCOMMODATION</div>
+            <div class="mt-2 text-5xl font-alt">Room Costs</div>
+            <div class="text-white/70 mt-2">10-month rental agreement + deposit</div>
+
+            <div class="mt-8 space-y-4">
+              <div class="flex justify-between text-white/85"><span>2 Bed Room</span><span class="font-semibold">R2850 /
+                  month</span></div>
+              <div class="flex justify-between text-white/85"><span>3 Bed Room</span><span class="font-semibold">R2750 /
+                  month</span></div>
+              <div class="flex justify-between text-white/85"><span>4 Bed Room</span><span class="font-semibold">R2650 /
+                  month</span></div>
+              <div class="flex justify-between text-white/85"><span>5 Bed Room</span><span class="font-semibold">R2550 /
+                  month</span></div>
+              <div class="flex justify-between text-white/85"><span>6 Bed Room</span><span class="font-semibold">R2550 /
+                  month</span></div>
+
+              <div class="pt-2 text-white/70 text-sm">No single rooms available.</div>
+
+              <div class="pt-2 text-white/70 text-sm leading-relaxed">
+                <span class="text-white font-semibold">Deposit:</span> R1500 (refundable after move-out if no damage).
+                <br />
+                <span class="text-white font-semibold">Accommodation allocation:</span> first come first served; room
+                size cannot be guaranteed.
+              </div>
+            </div>
+
+            <a href="contact.html" class="cta mt-10 bg-white text-black">Ask about rooms</a>
+          </div>
+        </section>
+
+      </div>
+
+      <section class="mt-14 glass rounded-3xl p-8 border border-white/15">
+        <div class="grid lg:grid-cols-2 gap-10">
+
+          <div>
+            <div class="text-white/70 tracking-widest text-sm">EXCLUDED FROM FEES</div>
+            <ul class="mt-5 space-y-3 text-white/80 leading-relaxed">
+              <li>• End-of-year camp (± R4000) — savings project for students during the year</li>
+              <li>• Equipment and food for the Hiking Trail</li>
+              <li>• Metamorpho online shop items (optional)</li>
+              <li>• Contributions for two Changeroom weekends (planned & executed by students as a group)</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="text-white/70 tracking-widest text-sm">COSTS INCLUDE</div>
+            <ul class="mt-5 space-y-3 text-white/80 leading-relaxed">
+              <li>• Fully furnished house (bed & mattress, cupboard, curtains, fridges, freezers, microwaves)</li>
+              <li>• Pots, pans, vacuum cleaner, washing machine</li>
+              <li>• Cleaning products for the house</li>
+              <li>• Water and electricity use</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script>
+    const stage = document.getElementById("pillStage");
+    const apply = document.getElementById("applyPill");
+    const chev = document.getElementById("applyChev");
+    const origin = document.getElementById("bubbleOrigin");
+
+    let open = false;
+
+    function setOriginAtApplyCenter() {
+      const a = apply.getBoundingClientRect();
+      const s = stage.getBoundingClientRect();
+
+      const cx = (a.left - s.left) + a.width / 2;
+      const cy = (a.top - s.top) + a.height / 2;
+
+      origin.style.left = cx + "px";
+      origin.style.top = cy + "px";
+    }
+
+    function toggle() {
+      open = !open;
+      setOriginAtApplyCenter();
+      stage.classList.toggle("pills-open", open);
+      chev.style.transform = open ? "rotate(180deg)" : "rotate(0deg)";
+    }
+
+    apply.addEventListener("click", toggle);
+
+    window.addEventListener("resize", () => { if (open) setOriginAtApplyCenter(); });
+    window.addEventListener("scroll", () => { if (open) setOriginAtApplyCenter(); }, { passive: true });
+
+    document.addEventListener("click", (e) => {
+      if (!open) return;
+      if (stage.contains(e.target)) return;
+      open = false;
+      stage.classList.remove("pills-open");
+      chev.style.transform = "rotate(0deg)";
+    });
+  </script>
+
+  <script>
+    const deck = document.getElementById("teamDeck");
+    const teamCards = Array.from(deck.querySelectorAll(".team-card"));
+    const prevBtn = document.getElementById("teamPrev");
+    const nextBtn = document.getElementById("teamNext");
+    const dotsWrap = document.getElementById("teamDots");
+
+    let active = 0;
+
+    teamCards.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition";
+      dot.addEventListener("click", () => { active = i; render(); });
+      dotsWrap.appendChild(dot);
+    });
+
+    function wrap(i) {
+      const n = teamCards.length;
+      return (i % n + n) % n;
+    }
+
+    function render() {
+      teamCards.forEach((card, i) => {
+        const n = teamCards.length;
+        let diff = i - active;
+        if (diff > n / 2) diff -= n;
+        if (diff < -n / 2) diff += n;
+        const pos = Math.max(-3, Math.min(3, diff));
+        card.setAttribute("data-pos", String(pos));
+      });
+
+      Array.from(dotsWrap.children).forEach((d, i) => {
+        d.className = "w-2.5 h-2.5 rounded-full transition " + (i === active ? "bg-white" : "bg-white/30 hover:bg-white/60");
+      });
+    }
+
+    prevBtn.addEventListener("click", () => { active = wrap(active - 1); render(); });
+    nextBtn.addEventListener("click", () => { active = wrap(active + 1); render(); });
+
+    teamCards.forEach((card, i) => {
+      card.style.cursor = "pointer";
+      card.addEventListener("click", () => { active = i; render(); });
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") { active = wrap(active - 1); render(); }
+      if (e.key === "ArrowRight") { active = wrap(active + 1); render(); }
+    });
+
+    render();
+  </script>
+
+</body>
+
+</html>

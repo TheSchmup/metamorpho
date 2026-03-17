@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FAQ | Metamorpho</title>
+  <script src="https://cdn.tailwindcss.com?cache=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; }
+    body { background: #0B1722; color: #fff; }
+
+    @font-face {
+      font-family: 'MetaFont';
+      src:
+        url('/assets/fonts/MetaFont-Regular.woff2') format('woff2'),
+        url('/assets/fonts/MetaFont.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'metabold';
+      src:
+        url('/assets/fonts/metabold-Regular.woff2') format('woff2'),
+        url('/assets/fonts/metabold.otf') format('opentype');
+    }
+    body { font-family: 'MetaFont', sans-serif; }
+    .font-alt { font-family: 'metabold', sans-serif; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+    .nav-pill {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .divider { border-top: 1px solid rgba(255,255,255,0.12); }
+
+    .faq-btn {
+      width: 100%;
+      text-align: left;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 18px;
+      border-radius: 18px;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .faq-btn:hover { transform: translateY(-2px); }
+    .chev {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      opacity: .85;
+      transform: rotate(0deg);
+      transition: transform .2s ease;
+      margin-top: 4px;
+    }
+    .faq-item[data-open="true"] .chev { transform: rotate(180deg); }
+    .faq-panel {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .25s ease;
+    }
+
+    .faq-bg{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  background-image: url("assets/images/faq.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: brightness(0.4);
+}
+
+.btn {
+  background: linear-gradient(120deg, #34b29c, #d2001a);
+  background-size: 200% 100%;
+}
+
+.btn:hover {
+  background-position: 100% 0;
+}
+
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+<div class="faq-bg"></div>
+  <!-- ================= NAV ================= -->
+  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50">
+    <a href="/index.html" class="flex items-center gap-3">
+      <img src="/assets/images/meta.logo.png" class="h-12 md:h-16" alt="Meta logo" />
+      <span class="hidden md:block text-xs tracking-widest opacity-80">METAMORPHO</span>
+    </a>
+
+    <div class="hidden md:block nav-pill px-10 py-4 rounded-full shadow-lg">
+      <ul class="flex gap-8 text-sm tracking-wider items-center">
+        <li><a class="opacity-85 hover:opacity-100" href="/index.html">HOME</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/about.html">ABOUT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/gallery.html">GALLERY</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/metaventures.html">METAVENTURES</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/shop.html">SHOP</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/contact.html">CONTACT</a></li>
+        <li><a class="opacity-100 font-alt" href="/faq.html">FAQ</a></li>
+      </ul>
+    </div>
+
+    <a href="/contact.html" class="md:hidden glass px-4 py-2 rounded-full text-xs tracking-widest">
+      CONTACT
+    </a>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <section class="pt-28 md:pt-32 px-6 md:px-12">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="text-xs tracking-[0.35em] opacity-70 mb-4">FREQUENTLY ASKED QUESTIONS</div>
+      <h1 class="text-5xl md:text-6xl font-alt leading-tight">Answers for students and parents.</h1>
+      <p class="mt-6 text-white/75 leading-relaxed max-w-[85ch]">
+        These FAQs cover the basics. Campus details (fees, dates, team and admissions specifics) live on the campus pages.
+        If you don’t see your question here, contact us and we’ll help fast.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-3">
+        <a href="/capetown.html" class="btn glass px-6 py-4 rounded-2xl font-alt tracking-wider hover:translate-y-[-2px] transition text-center">
+          Cape Town Info
+        </a>
+        <a href="/pretoria.html" class="btn glass px-6 py-4 rounded-2xl font-alt tracking-wider hover:translate-y-[-2px] transition text-center">
+          Pretoria Info
+        </a>
+        <a href="/contact.html" class="btn glass px-6 py-4 rounded-2xl font-alt tracking-wider hover:translate-y-[-2px] transition text-center">
+          Ask a question
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SEARCH + QUICK LINKS ================= -->
+  <section class="px-6 md:px-12 mt-10">
+    <div class="max-w-[1200px] mx-auto grid md:grid-cols-3 gap-6 items-start">
+      <div class="md:col-span-2 glass rounded-3xl p-6 md:p-8">
+        <div class="text-sm tracking-widest opacity-70 mb-3">SEARCH</div>
+        <input
+          id="faqSearch"
+          type="text"
+          placeholder="Search a keyword (fees, accommodation, discipline, schedule...)"
+          class="w-full bg-white/10 border border-white/20 rounded-2xl px-5 py-4 text-white placeholder:text-white/50 outline-none"
+        />
+        <p class="mt-3 text-xs text-white/55">
+          Tip: Try “fees”, “application”, “parents”, “rules”, “accommodation”.
+        </p>
+      </div>
+
+      <div class="glass rounded-3xl p-6 md:p-8">
+        <div class="text-sm tracking-widest opacity-70 mb-4">QUICK LINKS</div>
+        <div class="flex flex-col gap-3 text-sm">
+          <a class="btn glass rounded-2xl px-5 py-4 hover:translate-y-[-2px] transition" href="#students">Student questions</a>
+          <a class="btn glass rounded-2xl px-5 py-4 hover:translate-y-[-2px] transition" href="#parents">Parent questions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ SECTIONS ================= -->
+  <section class="px-6 md:px-12 mt-10 pb-16 md:pb-24">
+    <div class="max-w-[1200px] mx-auto space-y-10">
+
+      <!-- STUDENTS -->
+      <div id="students" class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-3">SECTION 01</div>
+        <h2 class="text-3xl md:text-4xl font-alt">Students</h2>
+        <p class="mt-3 text-white/70 max-w-[90ch]">
+          Meta is designed for growth. It’s structured, challenging, and deeply rewarding if you lean in.
+        </p>
+
+        <div class="mt-8 space-y-4 faq-group" data-group="students">
+          <!-- item -->
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="students fit who is this for">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Who is Meta for?</span>
+                <span class="block mt-2 text-white/70 leading-relaxed">
+                  A student who wants structure, growth, and direction — not just a “break year.”
+                </span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                Metamorpho is a one-year course to discover true authenticity for young people that have finished school up until the age of 23 years. Our quintessential focus is to equip students for the world. Career guidance is one part of our holistic (body, soul and spirit) approach to equipping students to live full lives and contribute to their communities using the unique gifts they are entrusted with.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="students schedule day week routine">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Is Meta just a year to relax and do nothing?</span>
+                <span class="block mt-2 text-white/70 leading-relaxed">
+                  You can expect training, teaching, responsibilities, physical camps and community life.
+                </span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                The whole process is thoroughly grounded in biblical, as well as current psychological principles. It integrates the spiritual and physical life, principled and practical! The process is progressive and functions adequately outside the student’s comfort zone so that growth may continue to occur, and students will embrace responsibility for their own learning and growth. It all happens in a very dynamic process that yields very adventurous and incredibly wonderful experiences. Metamorpho is a “challenging” experience and a year that will never be forgotten.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="students rules discipline expectations">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Is Meta easy?</span>
+                <span class="block mt-2 text-white/70 leading-relaxed">
+                 You will be challenged
+                </span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+               We stretch students to extract their character and potential and this only happens once they are put to the challenge outside of our comfort zones.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="students fitness sport training">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Do I need matric?</span>
+                <span class="block mt-2 text-white/70 leading-relaxed">
+                  No, but recommended
+                </span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                We wish to develop and prepare a student holistically therefor our classes are presented in such a way that students write their own textbooks. This means that we provide them with a notebook and they need to take notes like they would’ve needed to do if they went to university. We prefer students that have matric as this process as mentioned allows them to better engage in class. We open time in the afternoon should they wish to redo certain subjects to improve their marks for university application.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="students fitness sport training">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Do I have to stay in the commune?</span>
+                <span class="block mt-2 text-white/70 leading-relaxed">
+                  No, but recommended
+                </span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                Commune living is not compulsory yet recommended as this is where theory is out to the test and relationship building takes place.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="students fitness sport training">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">What physical requirements do I have to meet when I want to do Meta?</span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                 We also take an emphasis on developing your physical abilities as well. Physically you will be challenged on our excursions. You need to jog and be physically able to do a 56km hike. If you are unsure if you will be able to meet the physical requirements we will issue you with a letter to be signed by your GP to determine your physical capacity.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="students fitness sport training">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Do I need a car?</span>
+                <span class="block mt-2 text-white/70 leading-relaxed">
+                  No
+                </span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                Communes are situated right next to Doxa Deo Brooklyn where classes are held, and we are within walking distance to shops for food and work. If we as group need to travel Metamorpho will organise the necessary transport.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="students fitness sport training">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Does Meta have rules?</span>
+                <span class="block mt-2 text-white/70 leading-relaxed">
+                  We have culture
+                </span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                As we wish to create an environment for growth we put down a certain culture that is governed by a set of values that students and leaders adhere to which the students sign off on during registration. The values are discussed in detail at the admission days.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PARENTS -->
+      <div id="parents" class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-3">SECTION 02</div>
+        <h2 class="text-3xl md:text-4xl font-alt">Parents</h2>
+    
+        <div class="mt-8 space-y-4 faq-group" data-group="parents">
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="parents safety supervision leadership">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Does Meta gaurantee the transformation of a student?</span>
+                <span class="block mt-2 text-white/70 leading-relaxed">
+                 Not directly
+                </span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                The responsibility for change lays with the student himself. We as leadership simulate experiences to extract the character and unlock the potential within. We keep students accountable and uphold the mirror of Truth. We create an environment that enables you to discover yourself and everything you learn thoroughly.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="parents communication updates contact">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">How does a student enroll?</span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                STEP 1: If you require more information email us at metamorpho@doxadeo.org or contact the office at: 061 545 6433
+                STEP 2: Fill out the Online Registration form “here”.
+                STEP 3: Decide which admission day you wish to attend and confirm attendance “here” or via email at: metamorpho@doxadeo.org (admission day attendance is compulsory for enrolment).
+                STEP 4: During the admission day you need to conduct an admissions interview.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="parents value outcomes purpose">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">What does Meta cost?</span>
+                <span class="block mt-2 text-white/70 leading-relaxed">
+                  All information about fees will be found here: Cape Town Campus Fees or Pretoria Campus Fees
+                </span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="parents communication updates contact">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Are there bursaries available? What if I can't afford it?</span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                Metamorpho does have a bursary process. Bursaries and contacting people to sponsor a student becomes the student’s responsibility. Metamorpho no longer gives students bursaries. Please contact our office directly for more information.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="parents communication updates contact">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Does Meta deal with addiction?</span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                Metamorpho facilitates a process that is designed to help you discover what God has put in you. For this process to be effective, students need to take responsibility for their growth. Being addicted to any substance hinders this process. We are not qualified to take you through such a process but we can point you in the right direction.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="parents communication updates contact">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">Do I have to attend an admission day? When?</span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                Attending an admission day is a requirement to form part of the process! During the admission days are where the interviews are conducted. To register go to the campus page where you will attend the admission day
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-3xl p-2" data-open="false" data-tags="parents communication updates contact">
+            <button class="faq-btn" type="button">
+              <span>
+                <span class="font-alt text-xl">What happens on vacations and weekends?</span>
+              </span>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="faq-panel px-5 pb-5">
+              <div class="text-white/75 leading-relaxed max-w-[95ch]">
+                Our terms run in concurrence with the Gauteng school holidays and students will be allowed to go home during those times except for a few times during the year when we are away as a group. These dates will be handed out during registration in January.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PRACTICAL -->
+      <div id="practical" class="glass rounded-3xl p-6 md:p-10">
+
+        <div class="mt-6 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+          <div class="text-white/70">
+            Still unsure? Send a question and we’ll point you to the right info.
+          </div>
+          <div class="flex gap-3">
+            <a href="/contact.html" class="btn glass px-6 py-3 rounded-xl text-sm tracking-wider hover:translate-y-[-2px] transition">
+              Contact
+            </a>
+            <a href="/capetown.html" class="btn glass px-6 py-3 rounded-xl text-sm tracking-wider hover:translate-y-[-2px] transition">
+              Cape Town
+            </a>
+            <a href="/pretoria.html" class="btn glass px-6 py-3 rounded-xl text-sm tracking-wider hover:translate-y-[-2px] transition">
+              Pretoria
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="px-6 md:px-12 pb-10">
+    <div class="max-w-[1200px] mx-auto divider pt-8 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/meta.logo.png" class="h-10" alt="Meta logo" />
+        <div class="text-xs tracking-widest opacity-70">METAMORPHO</div>
+      </div>
+
+      <div class="text-xs text-white/55 leading-relaxed">
+        © <span id="year"></span> Metamorpho. All rights reserved.
+      </div>
+
+      <div class="flex gap-6 text-xs tracking-widest opacity-70">
+        <a class="hover:opacity-100" href="/contact.html">CONTACT</a>
+        <a class="hover:opacity-100" href="/navigator-login.html">NAVIGATOR</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // accordion
+    function setPanelHeight(item, open) {
+      const panel = item.querySelector(".faq-panel");
+      if (!panel) return;
+      if (open) {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      } else {
+        panel.style.maxHeight = "0px";
+      }
+    }
+
+    function closeAllInGroup(groupEl) {
+      const items = groupEl.querySelectorAll(".faq-item");
+      items.forEach((item) => {
+        item.dataset.open = "false";
+        setPanelHeight(item, false);
+      });
+    }
+
+    document.querySelectorAll(".faq-group").forEach((groupEl) => {
+      groupEl.querySelectorAll(".faq-item .faq-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const item = btn.closest(".faq-item");
+          const isOpen = item.dataset.open === "true";
+
+          // accordion behavior inside the same group
+          closeAllInGroup(groupEl);
+
+          // toggle current
+          item.dataset.open = (!isOpen).toString();
+          setPanelHeight(item, !isOpen);
+        });
+      });
+    });
+
+    // search/filter
+    const input = document.getElementById("faqSearch");
+    const allItems = Array.from(document.querySelectorAll(".faq-item"));
+
+    function normalize(s) { return (s || "").toLowerCase().trim(); }
+
+    input.addEventListener("input", () => {
+      const q = normalize(input.value);
+      allItems.forEach((item) => {
+        const text = normalize(item.innerText);
+        const tags = normalize(item.getAttribute("data-tags"));
+        const match = q === "" || text.includes(q) || tags.includes(q);
+        item.style.display = match ? "" : "none";
+      });
+    });
+
+    // make sure open panels stay correct on resize
+    window.addEventListener("resize", () => {
+      document.querySelectorAll(".faq-item").forEach((item) => {
+        const open = item.dataset.open === "true";
+        setPanelHeight(item, open);
+      });
+    });
+  </script>
+</body>
+</html>

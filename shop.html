@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shop | Metamorpho</title>
+  <script src="https://cdn.tailwindcss.com?cache=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; }
+    body { background: #0B1722; color: #fff; }
+
+    @font-face {
+      font-family: 'MetaFont';
+      src:
+        url('/assets/fonts/MetaFont-Regular.woff2') format('woff2'),
+        url('/assets/fonts/MetaFont.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'metabold';
+      src:
+        url('/assets/fonts/metabold-Regular.woff2') format('woff2'),
+        url('/assets/fonts/metabold.otf') format('opentype');
+    }
+    body { font-family: 'MetaFont', sans-serif; }
+    .font-alt { font-family: 'metabold', sans-serif; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+    .nav-pill {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .divider { border-top: 1px solid rgba(255,255,255,0.12); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      transition: transform .15s ease, opacity .15s ease;
+      font-family: 'metabold', sans-serif;
+      letter-spacing: .08em;
+      font-size: 12px;
+      text-transform: uppercase;
+      opacity: .92;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: 1; }
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+  <!-- ================= NAV ================= -->
+  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50">
+    <a href="/index.html" class="flex items-center gap-3">
+      <img src="/assets/images/meta.logo.png" class="h-12 md:h-16" alt="Meta logo" />
+      <span class="hidden md:block text-xs tracking-widest opacity-80">METAMORPHO</span>
+    </a>
+
+    <div class="hidden md:block nav-pill px-10 py-4 rounded-full shadow-lg">
+      <ul class="flex gap-8 text-sm tracking-wider items-center">
+        <li><a class="opacity-85 hover:opacity-100" href="/index.html">HOME</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/about.html">ABOUT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/gallery.html">GALLERY</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/metaventures.html">METAVENTURES</a></li>
+        <li><a class="opacity-100 font-alt" href="/shop.html">SHOP</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/contact.html">CONTACT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/faq.html">FAQ</a></li>
+      </ul>
+    </div>
+
+    <a href="/contact.html" class="md:hidden glass px-4 py-2 rounded-full text-xs tracking-widest">
+      CONTACT
+    </a>
+  </nav>
+
+  <!-- ================= CONTENT ================= -->
+  <section class="pt-28 md:pt-32 px-6 md:px-12 pb-16 md:pb-24">
+    <div class="max-w-[900px] mx-auto glass rounded-[2.5rem] p-8 md:p-12 text-center">
+      <div class="text-xs tracking-[0.35em] opacity-70 mb-4">SHOP</div>
+      <h1 class="text-4xl md:text-5xl font-alt leading-tight">The Meta Store lives on a separate site.</h1>
+      <p class="mt-5 text-white/75 leading-relaxed">
+        You’re about to open our online store in a new tab. If nothing happens automatically, use the button below.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        <a id="storeBtn" class="btn w-full sm:w-auto" href="https://www.doxadeo.org/store/metamorpho/" target="_blank" rel="noopener">
+          Open Store
+        </a>
+        <a class="btn w-full sm:w-auto" href="/index.html">
+          Back to Home
+        </a>
+      </div>
+
+      <div class="mt-7 text-xs text-white/55">
+        Redirecting in <span id="countdown">5</span> seconds…
+        <button id="cancel" class="underline hover:opacity-100 opacity-80 ml-2" type="button">Cancel</button>
+      </div>
+
+      <div class="mt-8 divider"></div>
+
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="px-6 md:px-12 pb-10">
+    <div class="max-w-[1200px] mx-auto divider pt-8 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/meta.logo.png" class="h-10" alt="Meta logo" />
+        <div class="text-xs tracking-widest opacity-70">METAMORPHO</div>
+      </div>
+
+      <div class="text-xs text-white/55 leading-relaxed">
+        © <span id="year"></span> Metamorpho. All rights reserved.
+      </div>
+
+      <div class="flex gap-6 text-xs tracking-widest opacity-70">
+        <a class="hover:opacity-100" href="/contact.html">CONTACT</a>
+        <a class="hover:opacity-100" href="/faq.html">FAQ</a>
+        <a class="hover:opacity-100" href="/navigator-login.html">NAVIGATOR</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const STORE_URL = "https://www.doxadeo.org/store/metamorpho/";
+  const storeBtn = document.getElementById("storeBtn");
+  const countdown = document.getElementById("countdown");
+  const cancelBtn = document.getElementById("cancel");
+
+  storeBtn.href = STORE_URL;
+
+  let seconds = 5;
+  let timer = null;
+  let cancelled = false;
+
+  function tick() {
+    countdown.textContent = String(seconds);
+
+    if (seconds <= 0) {
+      clearInterval(timer);
+      timer = null;
+
+      if (!cancelled) {
+      window.location.href = STORE_URL;
+      }
+      return;
+    }
+
+    seconds -= 1;
+  }
+
+  tick();
+  timer = setInterval(tick, 1000);
+
+  cancelBtn.addEventListener("click", () => {
+    cancelled = true;
+    if (timer) clearInterval(timer);
+    timer = null;
+
+    cancelBtn.parentElement.innerHTML =
+      '<span class="text-xs text-white/55">Redirect cancelled.</span>';
+  });
+</script>
+</body>
+</html>

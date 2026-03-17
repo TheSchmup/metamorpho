@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gallery | Metamorpho</title>
+  <script src="https://cdn.tailwindcss.com?cache=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; }
+    body { background: #0B1722; color: #fff; }
+
+    @font-face {
+      font-family: 'MetaFont';
+      src:
+        url('/assets/fonts/MetaFont-Regular.woff2') format('woff2'),
+        url('/assets/fonts/MetaFont.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'metabold';
+      src:
+        url('/assets/fonts/metabold-Regular.woff2') format('woff2'),
+        url('/assets/fonts/metabold.otf') format('opentype');
+    }
+    body { font-family: 'MetaFont', sans-serif; }
+    .font-alt { font-family: 'metabold', sans-serif; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+    .nav-pill {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .divider { border-top: 1px solid rgba(255,255,255,0.12); }
+
+    .thumb {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      transition: transform .18s ease, opacity .18s ease;
+      cursor: pointer;
+    }
+    .thumb:hover { transform: translateY(-2px); opacity: 0.98; }
+
+    /* Lightbox */
+    .lb-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 9999;
+    }
+    .lb-backdrop[data-open="true"] { display: flex; }
+    .lb-card {
+      width: min(1100px, 100%);
+      border-radius: 26px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.55);
+    }
+    .lb-img {
+      width: 100%;
+      height: auto;
+      max-height: 78vh;
+      object-fit: contain;
+      background: rgba(0,0,0,0.35);
+    }
+    .lb-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+    }
+    .lb-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.10);
+      transition: transform .15s ease, opacity .15s ease;
+      font-family: 'metabold', sans-serif;
+      letter-spacing: .08em;
+      font-size: 12px;
+      text-transform: uppercase;
+      opacity: .92;
+    }
+    .lb-btn:hover { transform: translateY(-2px); opacity: 1; 
+    }
+
+    .gallery-bg{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  background-image: url("assets/images/gallery-bg.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: brightness(0.4);
+}
+
+.btn {
+  background: linear-gradient(120deg, #34b29c, #d2001a);
+  background-size: 200% 100%;
+}
+
+.btn:hover {
+  background-position: 100% 0;
+}
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+<div class="gallery-bg"></div>
+
+  <!-- ================= NAV ================= -->
+  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50">
+    <a href="/index.html" class="flex items-center gap-3">
+      <img src="/assets/images/meta.logo.png" class="h-12 md:h-16" alt="Meta logo" />
+      <span class="hidden md:block text-xs tracking-widest opacity-80">METAMORPHO</span>
+    </a>
+
+    <div class="hidden md:block nav-pill px-10 py-4 rounded-full shadow-lg">
+      <ul class="flex gap-8 text-sm tracking-wider items-center">
+        <li><a class="opacity-85 hover:opacity-100" href="/index.html">HOME</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/about.html">ABOUT</a></li>
+        <li><a class="opacity-100 font-alt" href="/gallery.html">GALLERY</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/metaventures.html">METAVENTURES</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/shop.html">SHOP</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/contact.html">CONTACT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/faq.html">FAQ</a></li>
+      </ul>
+    </div>
+
+    <a href="/contact.html" class="md:hidden glass px-4 py-2 rounded-full text-xs tracking-widest">
+      CONTACT
+    </a>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <section class="pt-28 md:pt-32 px-6 md:px-12">
+    <div class="max-w-[1200px] mx-auto">
+      <h1 class="text-5xl md:text-6xl font-alt leading-tight">Moments, memories, growth.</h1>
+
+      <div class="mt-8 glass rounded-3xl p-6 md:p-8">
+        <div class="text-sm tracking-widest opacity-70 mb-3">JUMP TO</div>
+        <div class="flex flex-wrap gap-3">
+          <a class="btn glass px-5 py-3 rounded-2xl text-xs tracking-widest hover:translate-y-[-2px] transition" href="#gung-ho">GUNG-HO</a>
+          <a class="btn glass px-5 py-3 rounded-2xl text-xs tracking-widest hover:translate-y-[-2px] transition" href="#hiking">HIKING TRIP</a>
+          <a class="btn glass px-5 py-3 rounded-2xl text-xs tracking-widest hover:translate-y-[-2px] transition" href="#highropes">HIGHROPES</a>
+          <a class="btn glass px-5 py-3 rounded-2xl text-xs tracking-widest hover:translate-y-[-2px] transition" href="#worldview">WORLDVIEW</a>
+          <a class="btn glass px-5 py-3 rounded-2xl text-xs tracking-widest hover:translate-y-[-2px] transition" href="#outreach">OUTREACH</a>
+          <a class="btn glass px-5 py-3 rounded-2xl text-xs tracking-widest hover:translate-y-[-2px] transition" href="#endyear">END YEAR CAMP</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTIONS ================= -->
+  <section class="px-6 md:px-12 mt-10 pb-16 md:pb-24">
+    <div class="max-w-[1200px] mx-auto space-y-12">
+
+      <!-- Template section pattern -->
+      <div id="gung-ho" class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-3">CAMP 01</div>
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-alt">Gung-Ho</h2>
+            <p class="mt-3 text-white/70 max-w-[90ch]">
+              High energy, teamwork, resilience. A key experience that bonds students and pushes limits.
+            </p>
+          </div>
+          <div class="text-xs tracking-widest opacity-70">
+            Click any photo to enlarge
+          </div>
+        </div>
+
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4" data-gallery="gung-ho"></div>
+      </div>
+
+      <div id="hiking" class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-3">CAMP 02</div>
+        <h2 class="text-3xl md:text-4xl font-alt">Hiking Trip</h2>
+        <p class="mt-3 text-white/70 max-w-[90ch]">
+          A journey to forge your character in some of the most beautiful places on earth       
+        </p>
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4" data-gallery="hiking"></div>
+      </div>
+
+      <div id="highropes" class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-3">CAMP 03</div>
+        <h2 class="text-3xl md:text-4xl font-alt">Highropes</h2>
+        <p class="mt-3 text-white/70 max-w-[90ch]">
+          Courage and trust. Students face fear and learn to move forward anyway.
+        </p>
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4" data-gallery="highropes"></div>
+      </div>
+
+      <div id="worldview" class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-3">CAMP 04</div>
+        <h2 class="text-3xl md:text-4xl font-alt">Worldview</h2>
+        <p class="mt-3 text-white/70 max-w-[90ch]">
+          Deep thinking, clear conviction. Sessions that shape how students see life and value.
+        </p>
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4" data-gallery="worldview"></div>
+      </div>
+
+      <div id="outreach" class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-3">CAMP 05</div>
+        <h2 class="text-3xl md:text-4xl font-alt">Outreach</h2>
+        <p class="mt-3 text-white/70 max-w-[90ch]">
+          Serving people. Students learn humility, compassion, and the power of showing up.
+        </p>
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4" data-gallery="outreach"></div>
+      </div>
+
+      <div id="endyear" class="glass rounded-3xl p-6 md:p-10">
+        <div class="text-xs tracking-[0.35em] opacity-70 mb-3">CAMP 06</div>
+        <h2 class="text-3xl md:text-4xl font-alt">End Year Camp</h2>
+        <p class="mt-3 text-white/70 max-w-[90ch]">
+          Reflection and celebration. A capstone moment that closes the year with meaning.
+        </p>
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4" data-gallery="endyear"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= LIGHTBOX ================= -->
+  <div class="lb-backdrop" id="lightbox" data-open="false" aria-hidden="true">
+    <div class="lb-card">
+      <img class="lb-img" id="lbImg" alt="Gallery image" />
+      <div class="lb-bar">
+        <div class="text-xs tracking-widest opacity-80" id="lbLabel">GALLERY</div>
+        <div class="flex gap-2">
+          <button class="lb-btn" id="lbPrev" type="button">Prev</button>
+          <button class="lb-btn" id="lbNext" type="button">Next</button>
+          <button class="lb-btn" id="lbClose" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="px-6 md:px-12 pb-10">
+    <div class="max-w-[1200px] mx-auto divider pt-8 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/meta.logo.png" class="h-10" alt="Meta logo" />
+        <div class="text-xs tracking-widest opacity-70">METAMORPHO</div>
+      </div>
+
+      <div class="text-xs text-white/55 leading-relaxed">
+        © <span id="year"></span> Metamorpho. All rights reserved.
+      </div>
+
+      <div class="flex gap-6 text-xs tracking-widest opacity-70">
+        <a class="hover:opacity-100" href="/contact.html">CONTACT</a>
+        <a class="hover:opacity-100" href="/faq.html">FAQ</a>
+        <a class="hover:opacity-100" href="/navigator-login.html">NAVIGATOR</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ---------- CONFIG: Replace these with your real image paths ----------
+    const galleries = [
+      {
+        key: "gung-ho",
+        label: "Gung-Ho",
+        images: [
+          "/assets/images/gallery/gung-ho/1.jpg",
+          "/assets/images/gallery/gung-ho/2.jpg",
+          "/assets/images/gallery/gung-ho/3.jpg",
+          "/assets/images/gallery/gung-ho/4.jpg",
+          "/assets/images/gallery/gung-ho/5.jpg",
+          "/assets/images/gallery/gung-ho/6.jpg",
+          "/assets/images/gallery/gung-ho/7.jpg",
+          "/assets/images/gallery/gung-ho/8.jpg",
+        ]
+      },
+      {
+        key: "hiking",
+        label: "Hiking Trip",
+        images: [
+          "/assets/images/gallery/hiking/1.jpg",
+          "/assets/images/gallery/hiking/2.jpg",
+          "/assets/images/gallery/hiking/3.jpg",
+          "/assets/images/gallery/hiking/4.jpg",
+          "/assets/images/gallery/hiking/5.jpg",
+          "/assets/images/gallery/hiking/6.jpg",
+          "/assets/images/gallery/hiking/7.jpg",
+          "/assets/images/gallery/hiking/8.jpg",
+        ]
+      },
+      {
+        key: "highropes",
+        label: "Highropes",
+        images: [
+          "/assets/images/gallery/highropes/1.jpg",
+          "/assets/images/gallery/highropes/2.jpg",
+          "/assets/images/gallery/highropes/3.jpg",
+          "/assets/images/gallery/highropes/4.jpg",
+          "/assets/images/gallery/highropes/5.jpg",
+          "/assets/images/gallery/highropes/6.jpg",
+          "/assets/images/gallery/highropes/7.jpg",
+          "/assets/images/gallery/highropes/8.jpg",
+        ]
+      },
+      {
+        key: "worldview",
+        label: "Worldview",
+        images: [
+          "/assets/images/gallery/worldview/1.jpg",
+          "/assets/images/gallery/worldview/2.jpg",
+          "/assets/images/gallery/worldview/3.jpg",
+          "/assets/images/gallery/worldview/4.jpg",
+          "/assets/images/gallery/worldview/5.jpg",
+          "/assets/images/gallery/worldview/6.jpg",
+          "/assets/images/gallery/worldview/7.jpg",
+          "/assets/images/gallery/worldview/8.jpg",
+        ]
+      },
+      {
+        key: "outreach",
+        label: "Outreach",
+        images: [
+          "/assets/images/gallery/outreach/1.jpg",
+          "/assets/images/gallery/outreach/2.jpg",
+          "/assets/images/gallery/outreach/3.jpg",
+          "/assets/images/gallery/outreach/4.jpg",
+          "/assets/images/gallery/outreach/5.jpg",
+          "/assets/images/gallery/outreach/6.jpg",
+          "/assets/images/gallery/outreach/7.jpg",
+          "/assets/images/gallery/outreach/8.jpg",
+        ]
+      },
+      {
+        key: "endyear",
+        label: "End Year Camp",
+        images: [
+          "/assets/images/gallery/endyear/1.jpg",
+          "/assets/images/gallery/endyear/2.jpg",
+          "/assets/images/gallery/endyear/3.jpg",
+          "/assets/images/gallery/endyear/4.jpg",
+          "/assets/images/gallery/endyear/5.jpg",
+          "/assets/images/gallery/endyear/6.jpg",
+          "/assets/images/gallery/endyear/7.jpg",
+          "/assets/images/gallery/endyear/8.jpg",
+        ]
+      }
+    ];
+
+    // ---------- Render grids ----------
+    function renderGallery(sectionKey, label, images) {
+      const container = document.querySelector(`[data-gallery="${sectionKey}"]`);
+      if (!container) return;
+
+      // If images don't exist yet, show placeholders to avoid "broken" look.
+      const safeImages = (images || []).length ? images : [];
+
+      safeImages.forEach((src, idx) => {
+        const wrap = document.createElement("button");
+        wrap.type = "button";
+        wrap.className = "thumb";
+        wrap.setAttribute("data-key", sectionKey);
+        wrap.setAttribute("data-index", String(idx));
+        wrap.setAttribute("aria-label", `${label} image ${idx + 1}`);
+
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = `${label} photo ${idx + 1}`;
+        img.loading = "lazy";
+        img.className = "w-full h-40 md:h-44 object-cover";
+
+        // if missing image path -> show subtle fallback
+        img.onerror = () => {
+          img.onerror = null;
+          img.src = "/assets/images/meta.logo.png";
+          img.className = "w-full h-40 md:h-44 object-contain p-8 opacity-70";
+        };
+
+        wrap.appendChild(img);
+        container.appendChild(wrap);
+      });
+    }
+
+    galleries.forEach(g => renderGallery(g.key, g.label, g.images));
+
+    // ---------- Lightbox ----------
+    const lightbox = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbLabel = document.getElementById("lbLabel");
+    const btnPrev = document.getElementById("lbPrev");
+    const btnNext = document.getElementById("lbNext");
+    const btnClose = document.getElementById("lbClose");
+
+    let currentKey = null;
+    let currentIndex = 0;
+
+    function getGallery(key) {
+      return galleries.find(g => g.key === key);
+    }
+
+    function openLightbox(key, index) {
+      const g = getGallery(key);
+      if (!g) return;
+
+      currentKey = key;
+      currentIndex = index;
+
+      lbLabel.textContent = `${g.label} — ${index + 1} / ${g.images.length}`;
+      lbImg.src = g.images[index];
+      lightbox.dataset.open = "true";
+      lightbox.setAttribute("aria-hidden", "false");
+
+      // prevent background scroll
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightbox.dataset.open = "false";
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      lbImg.src = "";
+    }
+
+    function go(delta) {
+      const g = getGallery(currentKey);
+      if (!g) return;
+      const n = g.images.length;
+      currentIndex = (currentIndex + delta + n) % n;
+      lbLabel.textContent = `${g.label} — ${currentIndex + 1} / ${n}`;
+      lbImg.src = g.images[currentIndex];
+    }
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".thumb");
+      if (!btn) return;
+      const key = btn.getAttribute("data-key");
+      const idx = parseInt(btn.getAttribute("data-index") || "0", 10);
+      openLightbox(key, idx);
+    });
+
+    btnPrev.addEventListener("click", () => go(-1));
+    btnNext.addEventListener("click", () => go(1));
+    btnClose.addEventListener("click", closeLightbox);
+
+    // click outside closes
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // keyboard support
+    document.addEventListener("keydown", (e) => {
+      const open = lightbox.dataset.open === "true";
+      if (!open) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") go(-1);
+      if (e.key === "ArrowRight") go(1);
+    });
+  </script>
+</body>
+</html>

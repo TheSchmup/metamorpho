@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About | Metamorpho</title>
+  <script src="https://cdn.tailwindcss.com?cache=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    ul { margin: 0; padding: 0; list-style: none; }
+
+    @font-face {
+      font-family: 'MetaFont';
+      src:
+        url('/assets/fonts/MetaFont-Regular.woff2') format('woff2'),
+        url('/assets/fonts/MetaFont.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'metabold';
+      src:
+        url('/assets/fonts/metabold-Regular.woff2') format('woff2'),
+        url('/assets/fonts/metabold.otf') format('opentype');
+    }
+    body { font-family: 'MetaFont', sans-serif; background: #0B1722; color: #fff; }
+    .font-alt { font-family: 'metabold', sans-serif; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+    .nav-pill {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .divider {
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+  
+  .glass {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.22);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  }
+
+  .camp-card {
+    transition:
+      transform 280ms cubic-bezier(0.2, 0.9, 0.2, 1),
+      border-color 280ms ease,
+      box-shadow 280ms ease;
+      display: flex;
+      flex-direction: column;
+  }
+
+  .camp-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(255,255,255,0.28);
+    box-shadow:
+      0 40px 100px rgba(0,0,0,0.45),
+      0 0 40px rgba(255,255,255,0.05);
+  }
+
+  .camp-countdown {
+  margin-top: auto;
+}
+
+  .count-num {
+    font-variant-numeric: tabular-nums;
+  }
+  .about-bg{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  background-image: url("assets/images/about-background.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: brightness(0.4);
+}
+
+.btn {
+  background: linear-gradient(120deg, #34b29c, #d2001a);
+  background-size: 200% 100%;
+}
+
+.btn:hover {
+  background-position: 100% 0;
+}
+
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+<!-- Fixed Background -->
+<div class="about-bg"></div>
+
+  <!-- ================= NAV ================= -->
+  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50">
+    <a href="/index.html" class="flex items-center gap-3">
+      <img src="/assets/images/meta.logo.png" class="h-12 md:h-16" alt="Meta logo" />
+      <span class="hidden md:block text-xs tracking-widest opacity-80">BACK HOME</span>
+    </a>
+
+    <div class="hidden md:block nav-pill px-10 py-4 rounded-full shadow-lg">
+      <ul class="flex gap-8 text-sm tracking-wider items-center">
+        <li><a class="opacity-85 hover:opacity-100" href="/index.html">HOME</a></li>
+        <li><a class="opacity-100 font-alt" href="/about.html">ABOUT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/gallery.html">GALLERY</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/metaventures.html">METAVENTURES</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/shop.html">SHOP</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/contact.html">CONTACT</a></li>
+        <li><a class="opacity-85 hover:opacity-100" href="/faq.html">FAQ</a></li>
+      </ul>
+    </div>
+
+    <!-- Mobile shortcut -->
+    <a href="/contact.html" class="md:hidden glass px-4 py-2 rounded-full text-xs tracking-widest">
+      CONTACT
+    </a>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <section class="pt-28 md:pt-32 px-6 md:px-12">
+    <div class="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-5xl md:text-6xl font-alt leading-tight">
+          Metamorpho is built around the belief of <span style="color: #34b29c;"> discovering authenticity </span> 
+        </h1>
+        <p class="mt-6 text-white/75 leading-relaxed max-w-[60ch]">
+          During a one-year process we navigate our students to take charge of their lives and to determine God’s purpose for their life. 
+          We have a firm belief in equipping students to have <em>outstanding metacognitive skills</em> and teach them how to utilize their unique gifts to contribute meaningfully to society. 
+          We wish to empower people between <em>18-23</em> years old to be the next generation of city changers and form part of a 25 year legacy.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="/capetown.html" class="btn glass px-6 py-4 rounded-2xl font-alt tracking-wider hover:translate-y-[-2px] transition">
+            Explore Cape Town Campus
+          </a>
+          <a href="/pretoria.html" class="btn glass px-6 py-4 rounded-2xl font-alt tracking-wider hover:translate-y-[-2px] transition">
+            Explore Pretoria Campus
+          </a>
+        </div>
+      </div>
+
+      <div class="glass rounded-3xl p-6 md:p-8">
+        <div class="text-sm tracking-widest opacity-70 mb-3">AT A GLANCE</div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="glass rounded-2xl p-4">
+            <div class="text-xs tracking-widest opacity-70">FOCUS</div>
+            <div class="mt-2 text-lg font-alt">Purpose & growth</div>
+          </div>
+          <div class="glass rounded-2xl p-4">
+            <div class="text-xs tracking-widest opacity-70">COMMUNITY</div>
+            <div class="mt-2 text-lg font-alt">Live & learn together</div>
+          </div>
+          <div class="glass rounded-2xl p-4">
+            <div class="text-xs tracking-widest opacity-70">TRAINING</div>
+            <div class="mt-2 text-lg font-alt">Practical + personal</div>
+          </div>
+          <div class="glass rounded-2xl p-4">
+            <div class="text-xs tracking-widest opacity-70">OUTCOME</div>
+            <div class="mt-2 text-lg font-alt">Clarity & direction</div>
+          </div>
+        </div>
+
+        <div class="divider my-6"></div>
+
+        <div class="mt-6">
+          <a href="/contact.html" class="btn inline-block glass px-5 py-3 rounded-xl text-sm tracking-wider hover:translate-y-[-2px] transition">
+            Ask a question
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+   <!-- ================= VIDEO ================= -->
+  <section class="relative py-36 px-8">
+
+  <div class="text-center mb-16">
+    <h2 class="text-6xl md:text-7xl font-alt">WHY CAMPS?</h2>
+  </div>
+
+  <div class="max-w-[1500px] mx-auto glass rounded-[40px] p-10">
+
+    <div class="aspect-video rounded-[28px] overflow-hidden">
+      <iframe
+        class="w-full h-full"
+        src="https://www.youtube.com/embed/qLurER-U5mg?rel=0&modestbranding=1"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= CAMP COUNTDOWNS ================= -->
+<section class="relative min-h-screen py-28 px-6">
+
+  <div class="relative max-w-[1400px] mx-auto z-10">
+    <div class="mb-14 text-center">
+      <div class="text-sm tracking-[0.35em] uppercase text-white/60 mb-4">Why Camps?</div>
+      <h2 class="text-5xl md:text-7xl font-alt leading-none">Camp Countdowns</h2>
+      <p class="text-white/70 mt-6 max-w-[760px] mx-auto text-lg leading-relaxed">
+        Every camp marks a defining moment in the Metamorpho journey. Here’s what’s coming next.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+      
+      <!-- CARD -->
+      <article class="camp-card glass rounded-[28px] p-7 border border-white/15 relative overflow-hidden"
+        data-date="2026-02-01T08:00:00">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-transparent pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col h-full">
+          <div class="text-xs tracking-[0.32em] uppercase text-white/50 mb-3">Camp 01</div>
+          <h3 class="text-3xl font-alt mb-4">Orientation</h3>
+          <p class="text-white/70 leading-relaxed mb-8">
+            This is our first camp and our first student experience. We introduce our students to the life-changing culture of Metamorpho. 
+            During this experience we guide our students to start their journey of Discovering Their True Authenticity.
+          </p>
+
+          <div class="camp-countdown grid grid-cols-3 gap-3 mt-auto pt-8">
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="days">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Days</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="hours">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Hours</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="mins">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Min</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="camp-card glass rounded-[28px] p-7 border border-white/15 relative overflow-hidden"
+        data-date="2026-03-10T08:00:00">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-transparent pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col h-full">
+          <div class="text-xs tracking-[0.32em] uppercase text-white/50 mb-3">Camp 02</div>
+          <h3 class="text-3xl font-alt mb-4">Gung Ho</h3>
+          <p class="text-white/70 leading-relaxed mb-8">
+            This is our team building camp. This Chinese word is defined as “working together”, which is exactly what you will be doing on this camp. 
+            We work with the basic understanding of teamwork as well as create reachable goals for your team. 
+            On Gung Ho you will realise how you form part of a team and also what gifts and skillset you can add.
+          </p>
+
+          <div class="camp-countoun grid grid-cols-3 gap-3 mt-auto pt-8">
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="days">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Days</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="hours">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Hours</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="mins">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Min</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="camp-card glass rounded-[28px] p-7 border border-white/15 relative overflow-hidden"
+        data-date="2026-04-22T06:00:00">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-transparent pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col h-full">
+          <div class="text-xs tracking-[0.32em] uppercase text-white/50 mb-3">Camp 03</div>
+          <h3 class="text-3xl font-alt mb-4">Hiking Trail</h3>
+          <p class="text-white/70 leading-relaxed mb-8">
+            We go on a hike of about 56 km between Sabie and Graskop. 
+            Over the course of this 4 day journey your character is put to the test and you are exposed the greatness of who God truly is. 
+            This is an exciting time where we focus on family and friendships sharing these moments together. 
+            Get your boots on, you do not want to miss this one.
+          </p>
+
+          <div class="camp-countown grid grid-cols-3 gap-3 mt-auto pt-8">
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="days">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Days</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="hours">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Hours</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="mins">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Min</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="camp-card glass rounded-[28px] p-7 border border-white/15 relative overflow-hidden"
+        data-date="2026-06-05T08:00:00">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-transparent pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col h-full">
+          <div class="text-xs tracking-[0.32em] uppercase text-white/50 mb-3">Camp 04</div>
+          <h3 class="text-3xl font-alt mb-4">High Ropes</h3>
+          <p class="text-white/70 leading-relaxed mb-8">
+            There comes a time in your life where you are challenged to face your fears, and this is where our high ropes come in. 
+            We have built our own high ropes course where exercises take place 12 meters up in the air. 
+            As you go through certain obstacles you are given the opportunity to work through emotional boundaries and address the fears in your life.
+          </p>
+
+          <div class="camp-countdown grid grid-cols-3 gap-3 mt-auto pt-8">
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="days">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Days</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="hours">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Hours</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="mins">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Min</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="camp-card glass rounded-[28px] p-7 border border-white/15 relative overflow-hidden"
+        data-date="2026-08-14T08:00:00">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-transparent pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col h-full">
+          <div class="text-xs tracking-[0.32em] uppercase text-white/50 mb-3">Camp 05</div>
+          <h3 class="text-3xl font-alt mb-4">Worldview</h3>
+          <p class="text-white/70 leading-relaxed mb-8">
+            What is your potential? 
+            What is the value of the person next to you? 
+            Do you understand the privilege and opportunities within your reach? 
+            These are the questions we answer through this simulated experience and other experiential exercises.
+          </p>
+
+          <div class="camp-countdown grid grid-cols-3 gap-3 mt-auto pt-8">
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="days">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Days</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="hours">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Hours</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="mins">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Min</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="camp-card glass rounded-[28px] p-7 border border-white/15 relative overflow-hidden"
+        data-date="2026-09-18T08:00:00">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-transparent pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col h-full">
+          <div class="text-xs tracking-[0.32em] uppercase text-white/50 mb-3">Camp 06</div>
+          <h3 class="text-3xl font-alt mb-4">Outreach</h3>
+          <p class="text-white/70 leading-relaxed mb-8">
+            Our focus during this camp is how we can impact our society through means of our gifts, talents, time and resources. 
+            A truly humbling experience, and sure to leave you with a sincerity for the love of others.
+          </p>
+
+          <div class="camp-countdown grid grid-cols-3 gap-3 mt-auto pt-8">
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="days">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Days</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="hours">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Hours</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="count-num text-3xl md:text-4xl font-alt leading-none" data-unit="mins">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Min</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="camp-card glass rounded-[28px] p-7 border border-white/15 relative overflow-hidden md:col-span-2 xl:col-span-3"
+        data-date="2026-11-20T08:00:00">
+        <div class="absolute inset-0 bg-gradient-to-r from-white/8 via-transparent to-white/5 pointer-events-none"></div>
+        <div class="relative z-10 grid lg:grid-cols-[1.3fr_0.9fr] gap-8 items-center">
+          <div>
+            <div class="text-xs tracking-[0.32em] uppercase text-white/50 mb-3">Final Camp</div>
+            <h3 class="text-4xl md:text-5xl font-alt mb-4">End Year Camp</h3>
+            <p class="text-white/70 leading-relaxed max-w-[60ch]">
+              This is jam packed with excitement and fun. 
+              We celebrate the victories, friendships and growth that happened throughout the year. 
+              This is where it all comes together as a group vacation and fellowship opportunity.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3">
+            <div class="glass rounded-2xl p-5 text-center">
+              <div class="count-num text-4xl md:text-5xl font-alt leading-none" data-unit="days">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Days</div>
+            </div>
+            <div class="glass rounded-2xl p-5 text-center">
+              <div class="count-num text-4xl md:text-5xl font-alt leading-none" data-unit="hours">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Hours</div>
+            </div>
+            <div class="glass rounded-2xl p-5 text-center">
+              <div class="count-num text-4xl md:text-5xl font-alt leading-none" data-unit="mins">00</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/50 mt-2">Min</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+  <!-- ================= WHAT TO EXPECT ================= -->
+  <section class="px-6 md:px-12 mt-16 md:mt-24">
+    <div class="max-w-[1200px] mx-auto">
+      <h2 class="text-3xl md:text-4xl font-alt">What students experience</h2>
+      <p class="mt-3 text-white/70 max-w-[80ch]">
+        Meta is built around consistent rhythms. The details differ per campus, but the experience is designed to be structured,
+        challenging, and deeply formative.
+      </p>
+
+      <div class="mt-8 grid md:grid-cols-3 gap-5">
+        <div class="glass rounded-3xl p-6">
+          <div class="text-xs tracking-widest opacity-70">DISCIPLINE</div>
+          <div class="mt-2 text-xl font-alt">Routines that build strength</div>
+          <p class="mt-3 text-white/70 leading-relaxed">
+            Weekly structure that develops self-control, responsibility, and consistency.
+          </p>
+        </div>
+
+        <div class="glass rounded-3xl p-6">
+          <div class="text-xs tracking-widest opacity-70">FORMATION</div>
+          <div class="mt-2 text-xl font-alt">Character + spiritual growth</div>
+          <p class="mt-3 text-white/70 leading-relaxed">
+            Teaching, mentorship, and reflection that help discover and values.
+          </p>
+        </div>
+
+        <div class="glass rounded-3xl p-6">
+          <div class="text-xs tracking-widest opacity-70">PRACTICALITY</div>
+          <div class="mt-2 text-xl font-alt">Skills for real life</div>
+          <p class="mt-3 text-white/70 leading-relaxed">
+            Communication, teamwork, leadership, and practical competence through real responsibilities.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= OUTCOMES ================= -->
+  <section class="px-6 md:px-12 mt-16 md:mt-24">
+    <div class="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-8 items-start">
+      <div class="glass rounded-3xl p-7 md:p-10">
+        <h3 class="text-2xl md:text-3xl font-alt">Outcomes we’re aiming for</h3>
+        <ul class="mt-5 space-y-3 text-white/75 leading-relaxed">
+          <li>• Greater maturity and ownership of life.</li>
+          <li>• Stronger habits and personal discipline.</li>
+          <li>• Clearer direction for study, work, and calling.</li>
+          <li>• Improved confidence, communication, and leadership.</li>
+          <li>• Healthier routines and stronger relationships.</li>
+        </ul>
+      </div>
+
+      <div class="glass rounded-3xl p-7 md:p-10">
+        <h3 class="text-2xl md:text-3xl font-alt">Parents: what to expect</h3>
+        <ul class="mt-5 space-y-3 text-white/75 leading-relaxed">
+          <li>• Structured environment with mentorship and accountability.</li>
+          <li>• Clear communication pathways for questions and updates.</li>
+          <li>• A year that builds resilience, responsibility, and conviction.</li>
+        </ul>
+        <div class="mt-6">
+          <a href="/faq.html" class="btn inline-block glass px-5 py-3 rounded-xl text-sm tracking-wider hover:translate-y-[-2px] transition">
+            Read FAQs
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="px-6 md:px-12 mt-16 md:mt-24 pb-16 md:pb-24">
+    <div class="max-w-[1200px] mx-auto glass rounded-[2.5rem] p-8 md:p-12">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <div class="text-xs tracking-[0.35em] opacity-70 mb-3">NEXT STEP</div>
+          <h2 class="text-3xl md:text-4xl font-alt">Want to explore a campus?</h2>
+          <p class="mt-3 text-white/70 max-w-[70ch]">
+            Start with the campus pages for fees, team, admissions and practical info.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 md:justify-end">
+          <a href="/capetown.html" class="btn glass px-6 py-4 rounded-2xl font-alt tracking-wider text-center hover:translate-y-[-2px] transition">
+            Cape Town
+          </a>
+          <a href="/pretoria.html" class="btn glass px-6 py-4 rounded-2xl font-alt tracking-wider text-center hover:translate-y-[-2px] transition">
+            Pretoria
+          </a>
+          <a href="/contact.html" class="btn glass px-6 py-4 rounded-2xl font-alt tracking-wider text-center hover:translate-y-[-2px] transition">
+            Contact
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="px-6 md:px-12 pb-10">
+    <div class="max-w-[1200px] mx-auto divider pt-8 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/meta.logo.png" class="h-10" alt="Meta logo" />
+        <div class="text-xs tracking-widest opacity-70">METAMORPHO</div>
+      </div>
+
+      <div class="text-xs text-white/55 leading-relaxed">
+        © <span id="year"></span> Metamorpho. All rights reserved.
+      </div>
+
+      <div class="flex gap-6 text-xs tracking-widest opacity-70">
+        <a class="hover:opacity-100" href="/contact.html">CONTACT</a>
+        <a class="hover:opacity-100" href="/faq.html">FAQ</a>
+        <a class="hover:opacity-100" href="/navigator-login.html">NAVIGATOR</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script>
+  function animateValue(el, start, end, duration = 900) {
+    const startTime = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.floor(start + (end - start) * eased);
+      el.textContent = String(value).padStart(2, "0");
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  function getTimeParts(targetDate) {
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      return { days: 0, hours: 0, mins: 0 };
+    }
+
+    const totalMinutes = Math.floor(diff / 1000 / 60);
+    const days = Math.floor(totalMinutes / (60 * 24));
+    const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
+    const mins = totalMinutes % 60;
+
+    return { days, hours, mins };
+  }
+
+  function updateCampCountdown(card, animate = false) {
+    const targetDate = new Date(card.dataset.date);
+    const { days, hours, mins } = getTimeParts(targetDate);
+
+    const dayEl = card.querySelector('[data-unit="days"]');
+    const hourEl = card.querySelector('[data-unit="hours"]');
+    const minEl = card.querySelector('[data-unit="mins"]');
+
+    if (animate && !card.dataset.animated) {
+      animateValue(dayEl, 0, days, 1200);
+      animateValue(hourEl, 0, hours, 1000);
+      animateValue(minEl, 0, mins, 900);
+      card.dataset.animated = "true";
+    } else {
+      dayEl.textContent = String(days).padStart(2, "0");
+      hourEl.textContent = String(hours).padStart(2, "0");
+      minEl.textContent = String(mins).padStart(2, "0");
+    }
+  }
+
+  const campCards = document.querySelectorAll(".camp-card");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        updateCampCountdown(entry.target, true);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  campCards.forEach(card => {
+    updateCampCountdown(card, false);
+    observer.observe(card);
+  });
+
+  setInterval(() => {
+    campCards.forEach(card => updateCampCountdown(card, false));
+  }, 60000);
+</script>
+</body>
+</html>
