@@ -10,7 +10,9 @@
   <style>
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 104px; }
     img { display: block; max-width: 100%; height: auto; }
+    iframe { display: block; max-width: 100%; }
     ul { margin: 0; padding: 0; list-style: none; }
 
     @font-face {
@@ -30,9 +32,12 @@
       font-family: 'MetaFont', sans-serif;
       background: #77151b;
       color: white;
+      overflow-x: hidden;
     }
 
     .font-alt { font-family: 'metabold', sans-serif; }
+
+    [id] { scroll-margin-top: 104px; }
 
     #fees { overflow: visible; }
 
@@ -90,10 +95,17 @@
   box-shadow: 0 18px 36px rgba(0,0,0,0.28);
 }
 
-    html { scroll-behavior: smooth; }
-
     /* Vision-style team carousel */
-    .team-stage { perspective: 1200px; }
+    .team-stage {
+      perspective: 1200px;
+      overflow: visible;
+    }
+
+    #teamDeck {
+      position: relative;
+      height: 760px;
+      overflow: visible;
+    }
 
     .team-card {
       position: absolute;
@@ -104,10 +116,14 @@
       height: 520px;
       border-radius: 28px;
       overflow: hidden;
-      transition: transform 520ms cubic-bezier(0.2, 0.9, 0.2, 1),
+      transition:
+        transform 520ms cubic-bezier(0.2, 0.9, 0.2, 1),
         opacity 520ms ease,
-        filter 520ms ease;
-      will-change: transform, opacity, filter;
+        filter 520ms ease,
+        height 420ms cubic-bezier(0.2, 0.9, 0.2, 1),
+        width 420ms cubic-bezier(0.2, 0.9, 0.2, 1),
+        box-shadow 420ms ease;
+      will-change: transform, opacity, filter, height, width;
     }
 
     .team-photo {
@@ -118,12 +134,17 @@
       object-fit: cover;
       object-position: center 15%;
       transform: scale(1.03);
+      transition: transform 420ms ease;
     }
 
     .team-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.0) 60%);
+      background: linear-gradient(to top,
+          rgba(0, 0, 0, 0.82) 0%,
+          rgba(0, 0, 0, 0.48) 42%,
+          rgba(0, 0, 0, 0.10) 68%,
+          rgba(0, 0, 0, 0.0) 100%);
     }
 
     .team-meta {
@@ -131,6 +152,50 @@
       left: 22px;
       right: 22px;
       bottom: 18px;
+      transition: bottom 320ms ease;
+    }
+
+    .team-role {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .team-bio {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(10px);
+      transition:
+        max-height 420ms ease,
+        opacity 280ms ease,
+        transform 280ms ease;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 14px;
+      line-height: 1.55;
+      margin-top: 10px;
+      padding-right: 6px;
+    }
+
+    /* only let the FRONT card expand */
+    .team-card[data-pos="0"]:hover {
+      height: 690px;
+      width: min(560px, 90vw);
+      transform: translateX(calc(-50% + 24px)) translateY(0px) scale(1.02);
+      z-index: 60;
+      box-shadow: 0 45px 120px rgba(0, 0, 0, 0.55);
+    }
+
+    .team-card[data-pos="0"]:hover .team-photo {
+      transform: scale(1.06);
+    }
+
+    .team-card[data-pos="0"]:hover .team-meta {
+      bottom: 24px;
+    }
+
+    .team-card[data-pos="0"]:hover .team-bio {
+      max-height: 220px;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .team-card[data-pos="0"] {
@@ -332,6 +397,114 @@
   filter: brightness(0.4);
 }
 
+    @media (max-width: 1023px) {
+      .team-card[data-pos="1"] {
+        transform: translateX(calc(-50% + 180px)) translateY(16px) scale(0.84) rotateY(-14deg);
+      }
+
+      .team-card[data-pos="-1"] {
+        transform: translateX(calc(-50% - 180px)) translateY(16px) scale(0.84) rotateY(14deg);
+      }
+
+      .team-card[data-pos="2"] {
+        opacity: 0.18;
+        transform: translateX(calc(-50% + 300px)) translateY(24px) scale(0.72) rotateY(-20deg);
+      }
+
+      .team-card[data-pos="-2"] {
+        opacity: 0.18;
+        transform: translateX(calc(-50% - 300px)) translateY(24px) scale(0.72) rotateY(20deg);
+      }
+    }
+
+    @media (max-width: 767px) {
+      html {
+        scroll-padding-top: 88px;
+      }
+
+      [id] {
+        scroll-margin-top: 88px;
+      }
+
+      .team-stage {
+        height: 520px;
+      }
+
+      #teamDeck {
+        height: 440px;
+      }
+
+      .team-card {
+        width: min(100%, 340px);
+        height: 420px;
+        border-radius: 24px;
+      }
+
+      .team-meta {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+      }
+
+      .team-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 28px;
+      }
+
+      .team-card[data-pos="1"] {
+        transform: translateX(calc(-50% + 108px)) translateY(10px) scale(0.8) rotateY(-12deg);
+      }
+
+      .team-card[data-pos="-1"] {
+        transform: translateX(calc(-50% - 108px)) translateY(10px) scale(0.8) rotateY(12deg);
+      }
+
+      .team-card[data-pos="2"],
+      .team-card[data-pos="-2"] {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .team-card[data-pos="0"]:hover {
+        width: min(100%, 340px);
+        height: 420px;
+        transform: translateX(-50%) translateY(0px) scale(1) rotateY(0deg);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+      }
+
+      .team-card[data-pos="0"]:hover .team-photo {
+        transform: scale(1.03);
+      }
+
+      .team-card[data-pos="0"]:hover .team-meta {
+        bottom: 16px;
+      }
+
+      .team-card[data-pos="0"]:hover .team-bio {
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .big-blur-title {
+        top: -54px;
+      }
+
+      .price-card {
+        min-height: auto;
+        padding: 22px;
+      }
+
+      .admission-btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 14px 18px;
+        white-space: normal;
+      }
+    }
+
   </style>
 </head>
 
@@ -342,10 +515,10 @@
   <nav class="fixed top-0 w-full z-50 flex items-center justify-between px-6 md:px-10 py-5 md:py-6">
     <a href="index.html" class="flex items-center gap-3">
       <img src="/assets/images/meta.logo.png" class="h-12" alt="Meta logo" />
-      <span class="text-sm tracking-widest opacity-80">BACK HOME</span>
+      <span class="hidden sm:block text-sm tracking-widest opacity-80">BACK HOME</span>
     </a>
 
-    <div class="text-sm tracking-widest opacity-80">PRETORIA CAMPUS</div>
+    <div class="max-w-[11rem] text-right text-[11px] sm:text-sm tracking-[0.24em] sm:tracking-widest opacity-80">PRETORIA CAMPUS</div>
   </nav>
 
   <!-- 1) TITLE PAGE -->
@@ -353,7 +526,7 @@
     <div class="w-full max-w-[1200px] grid md:grid-cols-2 gap-10 items-center">
 
       <div>
-        <h1 class="text-6xl md:text-7xl font-alt leading-tight">
+        <h1 class="text-5xl md:text-7xl font-alt leading-tight">
           Pretoria<br />Campus
         </h1>
 
@@ -363,21 +536,21 @@
           the challenge and calm of the sea.
         </p>
 
-        <div class="mt-10 flex gap-6">
+        <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-6">
           <a href="#enroll"
-             class="rounded-full px-16 py-8 text-2xl font-alt transform hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(52,178,156,0.22)] btn-teal">
+             class="rounded-full px-8 sm:px-10 md:px-16 py-4 sm:py-5 md:py-8 text-base sm:text-lg md:text-2xl text-center font-alt transform hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(52,178,156,0.22)] btn-teal">
             Enroll
           </a>
 
           <a href="#fees"
-             class="rounded-full px-16 py-8 text-2xl font-alt transform hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(52,178,156,0.22)] btn-teal-inverse">
+             class="rounded-full px-8 sm:px-10 md:px-16 py-4 sm:py-5 md:py-8 text-base sm:text-lg md:text-2xl text-center font-alt transform hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(52,178,156,0.22)] btn-teal-inverse">
             Fees
           </a>
         </div>
       </div>
 
       <div class="glass heavy-shadow rounded-3xl overflow-hidden">
-        <img src="/assets/images/pretoria-hero.jpg" alt="Pretoria campus" class="w-full h-[420px] object-cover" />
+        <img src="/assets/images/pretoria-hero.jpg" alt="Pretoria campus" class="w-full h-[320px] sm:h-[420px] object-cover" />
       </div>
 
     </div>
@@ -446,7 +619,7 @@
 </section>
 
     <!--CAMP VIDEOS-->
-  <section id="camp-videos" class="px-10 py-24">
+  <section id="camp-videos" class="px-6 md:px-10 py-20 md:py-24">
   <div class="w-full max-w-[1400px] mx-auto">
 
     <div class="text-center mb-14">
@@ -569,8 +742,8 @@
   <section id="team" class="min-h-screen px-6 md:px-10 py-24 z-20 overflow-visible">
     <div class="w-full max-w-[1200px] mx-auto">
 
-      <h2 class="text-5xl font-alt mb-6">Meet the Team</h2>
-      <p class="text-white/75 max-w-[70ch] leading-relaxed mb-12 text-4xl">
+      <h2 class="text-4xl md:text-5xl font-alt mb-6">Meet the Team</h2>
+      <p class="text-white/75 max-w-[70ch] leading-relaxed mb-12 text-xl md:text-4xl">
         The leaders behind the mission.
       </p>
 
@@ -584,152 +757,217 @@
         <div id="teamDeck" class="relative h-[520px]">
 
           <div class="glass heavy-shadow team-card" data-index="0">
-            <img class="team-photo" src="/assets/images/innesnikita.jpeg" alt="Innes & Nikita">
+            <img class="team-photo" src="/assets/images/innesnikita.jpeg" alt="Innes & Nikita" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
               <div class="text-2xl font-alt">Heinrich, Suné and Mian</div>
-              <div class="text-white/75">Metamorpho Campus Leaders</div>
-              <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about what they lead or why they’re here.</div>
+              <div class="team-role">Metamorpho Campus Leaders</div>
+              <div class="text-white/70 text-sm mt-2 max-w-[52ch]">
+                The visionary and joyful leaders of Metamorpho are none other than these legends.
+              </div>
+
+              <div class="team-bio">
+                Heinrich did Meta in 2014 and soon after joined the team to later become our fearless leader of the institution.
+                Heinrich truly has an incredible sense of leadership and wisdom, while Suné has a beautiful and sensitive spirit.
+                Together Heinrich and Suné make a joyful and exciting team and keep guiding young people through a life-changing process.
+                Both of then love their community and especially enjoys guiding other men and women into fullness.
+                They are by far the most intense, interesting, and exiting members of the team.
+                Combined, the experience they have of being part of the Metamorpho team is 17 years.
+              </div>
             </div>
           </div>
 
           <div class="glass heavy-shadow team-card" data-index="1">
-            <img class="team-photo" src="/assets/images/duncan.jpeg" alt="Duncan Du Preez">
+            <img class="team-photo" src="/assets/images/duncan.jpeg" alt="Duncan Du Preez" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
               <div class="text-2xl font-alt">JP Myburg</div>
-              <div class="text-white/75">Navigator</div>
+              <div class="team-role">Navigator</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about their focus.</div>
-            </div>
-          </div>
-
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
-            <div class="team-overlay"></div>
-            <div class="team-meta">
-              <div class="text-2xl font-alt">Marcelle Coetzee</div>
-              <div class="text-white/75">Intern</div>
-              <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                JP is a very adventurous, outgoing and softhearted person. He has a big heart for ministry but a bigger one for the next generation. His character is solid, straightforward, and he is steadfast with true justice, but can also be goofy. His passion is to see the people understanding their identity in Christ and that they will understand the love God has for them. Hishobbies are gym, hunting, Golf and keeping fish as pets.
+              </div>
             </div>
           </div>
 
           <div class="glass heavy-shadow team-card" data-index="2">
-            <img class="team-photo" src="/assets/images/lizzard.jpeg" alt="Lizomé Krige">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
+            <div class="team-overlay"></div>
+            <div class="team-meta">
+              <div class="text-2xl font-alt">Marcelle Coetzee</div>
+              <div class="team-role">Manager</div>
+              <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Marcelle recently joined the Meta team. Her attributes to the team are mostly behind the scenes to assist with admin and logistics so that the leaders can give their full attention to the students. She loves being outdoors, being active, spending time with her husband, Fritz, and their 3 children. She is gentle, has a pure, honest love for people. Thrives on encouraging people and redirecting people on a path of healing and restoration so that they can thrive as human beings and give Jesus all the glory. She serves in the Kingdom of Light as a prophetic prayer warrior and a washer of feet.
+              </div>
+            </div>
+          </div>
+
+          <div class="glass heavy-shadow team-card" data-index="3">
+            <img class="team-photo" src="/assets/images/lizzard.jpeg" alt="Lizomé Krige" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
               <div class="text-2xl font-alt">Alitia Gagiano</div>
-              <div class="text-white/75">Navigator</div>
+              <div class="team-role">Navigator</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="4">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
               <div class="text-2xl font-alt">Abigale Higgs</div>
-              <div class="text-white/75">Intern</div>
+              <div class="team-role">Navigator</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Abigale is a passionate and caring young leader that loves Jesus with all of her heart, ready to serve in His kingdom. She loves to bring God’s joy, brightness and comfort into areas of uncertainty. She is bold and confident in who she is in Jesus and therefore she can bring God’s clarity and truth over others.
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="5">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
               <div class="text-2xl font-alt">Ruan Van Straten</div>
-              <div class="text-white/75">Intern</div>
+              <div class="team-role">Navigator</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Ruan is a caring and loving person. He likes to be on an adventure and live a life full of meaning and purpose. Equipping young people with truth is his passion. Knowing God and making Him known is what he lives for. He loves to be around the community and make memories with them.
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="6">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
               <div class="text-2xl font-alt">Hanno Visser</div>
-              <div class="text-white/75">Intern</div>
+              <div class="team-role">Senior intern</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Hanno is an ambitious leader passionate about creating environments that honor God and genuinely love people. He leads Meta Ventures, overseeing the expansion of the high ropes experience, the Meta Shop, and the Meta Market—spaces designed to foster growth, excellence, and meaningful community
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="7">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
               <div class="text-2xl font-alt">Alexandré Viljoen</div>
-              <div class="text-white/75">Intern</div>
+              <div class="team-role">Senior intern</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Driven to reach stagnant men, Alexandré is a Christ-centered leader dedicated to serving, teaching, and testifying to God’s truth. He is currently refining his management and teaching skills while pursuing a future in sport coaching, where he aims to guide men toward their true identity through the discipline of athletics and the strength of the Spirit. Relying on God as his defender and source of renewed strength, committed to a life of resilience, prayer, and growth.
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="6">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
-              <div class="text-2xl font-alt">Jethro</div>
-              <div class="text-white/75">Intern</div>
+              <div class="text-2xl font-alt">Philip Minnaar</div>
+              <div class="team-role">Senior intern</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Philip is a fascinating individual, known for his adventurous spirit and deep passion for connecting with people. His primary focus is serving others, not out of obligation, but because he sees it as a privilege. Firmly grounded in his identity in Christ, Philip exemplifies strong and compassionate leadership, always striving to understand and uplift those around him. He is dedicated to setting new standards and pursuing excellence in everything he does.
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="8">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
-              <div class="text-2xl font-alt">Jeandré</div>
-              <div class="text-white/75">Intern</div>
+              <div class="text-2xl font-alt">Jethro Mwale</div>
+              <div class="team-role">Intern</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Jethro is a young man with a passion for  seeking Christ daily and the younger generation. He really dreams to see the younger generation know that their identity and worth is rooted in Jesus Christ and to see them live out that truth daily. If you have anything football to talk about, he’s your guy. He’s a ball of energy always willing to bring that vibe and not shy of expressing himself, always laughing and always willing to help wherever he can. He is very hardworking, dedicated and always willing to learn something new. If you don’t catch him watching a football match then you might find him hanging out with friends.
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="9">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
-              <div class="text-2xl font-alt">Devandt</div>
-              <div class="text-white/75">Intern</div>
+              <div class="text-2xl font-alt">Jeandré Bosch</div>
+              <div class="team-role">Intern</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Jeandré carries an enthusiastic attitude that lights up every room, thriving on genuine connection. Always present and attentive, they listen with an open heart, making others feel seen, heard, and valued. Radical in his faith with Jesus, his life reflects deep conviction, love, and bold obedience. His warmth invites trust, and his joy in connecting with people turns every conversation into a meaningful exchange toward transformation.
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="10">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
-              <div class="text-2xl font-alt">Paulo</div>
-              <div class="text-white/75">Intern</div>
+              <div class="text-2xl font-alt">Devandt Scholtz</div>
+              <div class="team-role">Intern</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+               Devandt is a calm, disciplined, and servant-hearted student with a growing desire to lead through humility and love for others. He thrives in structured environments, leading quietly and faithfully behind the scenes, remaining adaptable in every season. Guided by purpose and personal growth, he seeks to serve people with gentleness while growing into a leader who reflects compassion, humility, and Christ-like character.
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="11">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
-              <div class="text-2xl font-alt">Jancke</div>
-              <div class="text-white/75">Intern</div>
+              <div class="text-2xl font-alt">Paulo van Niekerk</div>
+              <div class="team-role">Intern</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Paulo is a young man who loves to connect with the younger generation and loves to  transform their lives thanks to god who works through him . For him It’s all about obedience and being obedient to what God says to him . He has this big desire to help the younger generation get back their identity with god and truly discover themself who god created them to be .  And I love to bring glory to God by using the talents he’s been given me . And I live by the quote: a wasted life is a life lived in fear.
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="12">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
-              <div class="text-2xl font-alt">Anzé</div>
-              <div class="text-white/75">Intern</div>
+              <div class="text-2xl font-alt">Jancke van der Merwe</div>
+              <div class="team-role">Intern</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+               Jancke vd Merwe is deeply passionate about Jesus and loves Him with all of her heart. She chooses to live rooted in truth—God’s truth—and believes authenticity matters; that people should feel free to be real, honest, and down to earth. Her desire is to serve Jesus faithfully and to reflect His love in a way that is genuine, approachable, and real.
+              </div>
             </div>
           </div>
 
-          <div class="glass heavy-shadow team-card" data-index="3">
-            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk">
+          <div class="glass heavy-shadow team-card" data-index="13">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
+            <div class="team-overlay"></div>
+            <div class="team-meta">
+              <div class="text-2xl font-alt">Anzé Venter</div>
+              <div class="team-role">Intern</div>
+              <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Anzé is a young leader with a heart for people. She loves connecting with people and spending time doing things that bring joy into others lives. Her main goals are to show others Gods true love and live a life of full obedience. She is passionate about showing others the glory of God through her actions and the verse she lives is “We love because He loved us first”.
+              </div>
+            </div>
+          </div>
+
+          <div class="glass heavy-shadow team-card" data-index="14">
+            <img class="team-photo" src="/assets/images/annika.jpeg" alt="Annika Van Eyk" loading="lazy" decoding="async">
             <div class="team-overlay"></div>
             <div class="team-meta">
               <div class="text-2xl font-alt">Luca Visser</div>
-              <div class="text-white/75">Intern</div>
+              <div class="team-role">Intern</div>
               <div class="text-white/70 text-sm mt-2 max-w-[52ch]">Short one-liner about them.</div>
+              <div class="team-bio">
+                Luca, a passionate young woman who embodies luminous light. She loves thrifting, reading, and grooving to her own beat. With a heart full of kindness, she shares truth in a straightforward way. Adaptable and strong, she’s comforted by Psalms 94:19. Her name reflects her spirit – a bringer of light in all she does.
             </div>
           </div>
         </div>
@@ -745,7 +983,7 @@
   <section id="fees" class="bg-transparent relative min-h-screen pt-40 pb-24 z-40 mt-16 overflow-visible">
     <div class="big-blur-title"><h2>Fees</h2></div>
 
-    <div class="relative max-w-[1250px] mx-auto px-8 z-10">
+    <div class="relative max-w-[1250px] mx-auto px-6 md:px-8 z-10">
 
       <div class="mt-16 grid lg:grid-cols-3 gap-8">
 
@@ -889,7 +1127,7 @@
     });
   </script>
 
-  <script>
+   <script>
     const deck = document.getElementById("teamDeck");
     const teamCards = Array.from(deck.querySelectorAll(".team-card"));
     const prevBtn = document.getElementById("teamPrev");
@@ -940,6 +1178,7 @@
 
     render();
   </script>
+
 
 </body>
 </html>

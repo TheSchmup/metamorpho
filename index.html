@@ -19,10 +19,20 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 104px;
+    }
+
     img {
       display: block;
       max-width: 100%;
       height: auto;
+    }
+
+    iframe {
+      display: block;
+      max-width: 100%;
     }
 
     ul {
@@ -45,12 +55,27 @@
         url('/assets/fonts/metabold.otf') format('opentype');
     }
 
+    @font-face {
+      font-family: 'MetaScript';
+      src:
+        url('/assets/fonts/MetaScript-Regular.woff2') format('woff2'),
+        url('/assets/fonts/MetaScript.otf') format('opentype');
+    }
+
     body {
       font-family: 'MetaFont', sans-serif;
     }
 
     .font-alt {
       font-family: 'metabold', sans-serif;
+    }
+
+    .font-alt-2 {
+      font-family: 'MetaScript', sans-serif;
+    }
+
+    [id] {
+      scroll-margin-top: 104px;
     }
 
     .brand-section {
@@ -76,11 +101,6 @@
         transform 300ms ease;
       overflow: hidden;
       position: relative;
-    }
-
-    /* Hover lift */
-    .campus-btn:hover {
-      transform: translateY(-8px);
     }
 
     /* Text blocks */
@@ -195,15 +215,19 @@
         box-shadow 0.45s ease;
     }
 
-    /* lift hovered card */
-    .card:hover {
-      transform: translateY(-25px) scale(1.05);
-      z-index: 60;
-    }
+    @media (hover: hover) and (pointer: fine) {
+      .campus-btn:hover {
+        transform: translateY(-8px);
+      }
 
-    /* gently push neighbours without breaking layout */
-    #cardContainer:hover .card:not(:hover) {
-      transform: translateX(-10px) scale(0.98);
+      .card:hover {
+        transform: translateY(-25px) scale(1.05);
+        z-index: 60;
+      }
+
+      #cardContainer:hover .card:not(:hover) {
+        transform: translateX(-10px) scale(0.98);
+      }
     }
 
     /* ================= NAV LINK ANIMATION ================= */
@@ -270,34 +294,158 @@
     }
 
     /* Simple mobile nav */
-    #mobileMenu { max-height: 0; opacity: 0; pointer-events: none; }
-    #mobileMenu.open { max-height: 520px; opacity: 1; pointer-events: auto; }
+    #mobileMenu {
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #mobileMenu.open {
+      max-height: 520px;
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     .hero {
-  position: relative;
-}
+      position: relative;
+    }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 200px;
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
 
-  background: linear-gradient(
-    to bottom,
-    rgba(11, 23, 34, 0) 0%,
-    rgba(11, 23, 34, 0.5) 60%,
-    #193347 100%
-  );
+      background: linear-gradient(to bottom,
+          rgba(11, 23, 34, 0) 0%,
+          rgba(11, 23, 34, 0.5) 60%,
+          #193347 100%);
 
-  pointer-events: none;
-}
+      pointer-events: none;
+    }
 
-.cards-bg {
-  background-color: #193347;
-}
+    .cards-bg {
+      background-color: #193347;
+    }
+
+    .section-kicker {
+      font-size: 0.75rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .clarity-panel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clarity-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    .trust-badge {
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.8rem 1rem;
+    }
+
+    @media (max-width: 1023px) {
+      .card {
+        transform-origin: center bottom;
+      }
+    }
+
+    @media (max-width: 767px) {
+      html {
+        scroll-padding-top: 88px;
+      }
+
+      [id] {
+        scroll-margin-top: 88px;
+      }
+
+      #mobileMenu {
+        top: 76px;
+        left: 1rem;
+        right: 1rem;
+      }
+
+      #campusDock {
+        position: absolute;
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        width: auto;
+        transform: none;
+      }
+
+      #campusDock .flex {
+        flex-direction: column;
+        gap: 0.875rem;
+      }
+
+      #campusDock.bubble {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        width: auto;
+        transform: none;
+      }
+
+      #campusDock.bubble .campus-btn,
+      #campusDock .campus-btn {
+        width: 100%;
+        height: auto;
+        border-radius: 1.5rem;
+        padding: 1.15rem 1.25rem;
+      }
+
+      #campusDock.bubble .campus-full {
+        opacity: 1;
+      }
+
+      #campusDock.bubble .campus-bubble {
+        opacity: 0;
+      }
+
+      #heroHoverOverlay {
+        display: none;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 24rem;
+      }
+    }
+
+
+    @keyframes kenBurns {
+      0% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(1.15);
+      }
+    }
+
+    @keyframes kenBurns {
+      0% {
+        transform: scale(1) translateX(0px);
+      }
+
+      100% {
+        transform: scale(1.1) translateX(-20px);
+      }
+    }
   </style>
 </head>
 
@@ -324,7 +472,8 @@
     </div>
 
     <!-- Mobile menu button -->
-    <button id="menuBtn" class="md:hidden glass rounded-full px-4 py-2 text-sm tracking-widest" aria-expanded="false" aria-controls="mobileMenu">
+    <button id="menuBtn" class="md:hidden glass rounded-full px-4 py-2 text-sm tracking-widest" aria-expanded="false"
+      aria-controls="mobileMenu">
       MENU
     </button>
   </nav>
@@ -344,84 +493,133 @@
   </div>
 
   <!-- ================= HERO ================= -->
-<section class="relative h-[160vh]">
+  <section class="hero relative min-h-[118svh] md:h-[160vh] overflow-hidden">
 
-  <!-- Background -->
-  <img src="/assets/images/hero.jpeg" class="absolute inset-0 w-full h-full object-cover z-0" alt="Hero background" />
+    <img src="assets/images/hero.jpeg" class="absolute inset-0 w-full h-full object-cover z-0" />
 
-  <!-- Background Title -->
-  <img src="/assets/images/titlelogo.png"
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[60vh] w-auto z-10 opacity-100 pointer-events-none"
-    alt="Metamorpho title" />
+    <!-- Background Title -->
+    <img src="/assets/images/titlelogo.png"
+      class="fixed top-[25%] left-1/2 -translate-x-1/2 -translate-y-1/4 max-h-[34vh] sm:max-h-[42vh] md:max-h-[60vh] max-w-[82vw] w-auto z-10 opacity-100 pointer-events-none"
+      alt="Metamorpho title" />
 
-  <!-- Background -->
-  <img src="/assets/images/mountainstrasparent.png" class="absolute inset-0 w-full h-full object-cover z-10" alt="Hero background" />
+    <img src="assets/images/mountainstrasparent.png" class="absolute inset-0 w-full h-full object-cover z-10" />
 
-  <!-- Soft fade into next section -->
-  <div class="absolute bottom-0 left-0 w-full h-48 md:h-72 z-20 pointer-events-none
+
+    <!-- Soft fade into next section -->
+    <div class="absolute bottom-0 left-0 w-full h-48 md:h-72 z-20 pointer-events-none
     bg-gradient-to-b from-transparent via-[#0B1722]/40 to-[#16324A]">
-  </div>
+    </div>
 
-  <!-- HERO HOVER OVERLAY (image bleed) -->
-  <div id="heroHoverOverlay" class="fixed inset-0 z-25 pointer-events-none"></div>
+    <!-- HERO HOVER OVERLAY (image bleed) -->
+    <div id="heroHoverOverlay" class="fixed inset-0 z-25 pointer-events-none"></div>
 
-  <!-- HERO CAMPUS BUTTONS -->
-  <div id="campusDock" class="fixed bottom-5 md:bottom-12 left-1/2 -translate-x-1/2 z-30 w-[92%] max-w-[1400px]">
-    <div class="flex gap-4 md:gap-6">
+    <!-- HERO CAMPUS BUTTONS -->
+    <div id="campusDock" class="fixed bottom-5 md:bottom-12 left-1/2 -translate-x-1/2 z-30 w-[92%] max-w-[1400px]">
+      <div class="flex gap-4 md:gap-6">
 
-      <!-- Pretoria -->
-      <a href="pretoria.html" class="campus-btn glass w-1/2 h-auto rounded-3xl px-6 md:px-10 py-7 md:py-10 text-left"
-        data-hero="/assets/images/pretoria-hero.jpg">
-        <div class="campus-full">
-          <div class="text-sm tracking-widest opacity-80 mb-2">CAMPUS</div>
-          <div class="text-4xl font-alt mb-2">Pretoria</div>
-          <div class="hidden md:block text-white/70">View info, fees, team & admission.</div>
+        <!-- Pretoria -->
+        <a href="pretoria.html" class="campus-btn glass w-1/2 h-auto rounded-3xl px-5 md:px-10 py-6 md:py-10 text-left"
+          data-hero="/assets/images/pretoria-hero.jpg">
+          <div class="campus-full">
+            <div class="text-sm tracking-widest opacity-80 mb-2">CAMPUS</div>
+            <div class="text-3xl md:text-4xl font-alt mb-2">Pretoria</div>
+            <div class="hidden md:block text-white/70">View info, fees, team & admission.</div>
+          </div>
+          <div class="campus-bubble">PTA</div>
+        </a>
+
+        <!-- Cape Town -->
+        <a href="capetown.html" class="campus-btn glass w-1/2 h-auto rounded-3xl px-5 md:px-10 py-6 md:py-10 text-left"
+          data-hero="/assets/images/capetown-hero.jpg">
+          <div class="campus-full">
+            <div class="text-sm tracking-widest opacity-80 mb-2">CAMPUS</div>
+            <div class="text-3xl md:text-4xl font-alt mb-2">Cape Town</div>
+            <div class="hidden md:block text-white/70">Explore the Strand campus & apply.</div>
+          </div>
+          <div class="campus-bubble">CPT</div>
+        </a>
+
+      </div>
+    </div>
+
+  </section>
+  <!-- ================= CLARITY SECTION (EDITORIAL STYLE) ================= -->
+  <section class="brand-section relative z-20 px-6 md:px-12 py-24 md:py-32 overflow-hidden">
+
+    <div class="grid lg:grid-cols-2 gap-16 items-center max-w-[1400px] mx-auto">
+
+      <!-- LEFT: TEXT -->
+      <div>
+        <div class="text-xs tracking-[0.35em] opacity-60 mb-4 uppercase">
+          What Metamorpho Is
         </div>
-        <div class="campus-bubble">PTA</div>
-      </a>
 
-      <!-- Cape Town -->
-      <a href="capetown.html" class="campus-btn glass w-1/2 h-auto rounded-3xl px-6 md:px-10 py-7 md:py-10 text-left"
-        data-hero="/assets/images/capetown-hero.jpg">
-        <div class="campus-full">
-          <div class="text-sm tracking-widest opacity-80 mb-2">CAMPUS</div>
-          <div class="text-4xl font-alt mb-2">Cape Town</div>
-          <div class="hidden md:block text-white/70">Explore the Strand campus & apply.</div>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-alt leading-tight max-w-[18ch]">
+          A one-year process that helps discover identity, potential, and calling in community.
+        </h2>
+
+        <p class="mt-6 text-white/70 text-lg leading-relaxed max-w-[55ch]">
+          During a one-year process we navigate our students to take charge of their lives and to determine God’s
+          purpose for their life.
+          We have a firm belief in equipping students to have outstanding metacognitive skills and teach them how to
+          utilize their unique gifts to contribute meaningfully to society.
+          We wish to empower people between 18-23 years old to be the next generation of city changers and form part of
+          a 28 year legacy.
+        </p>
+      </div>
+
+      <!-- RIGHT: BIG TRUST BLOCK -->
+      <div class="relative flex flex-col items-start lg:items-end text-left lg:text-right">
+
+        <!-- BIG EST -->
+        <div id="est-year"
+          class="font-alt text-[64px] md:text-[100px] lg:text-[140px] leading-none opacity-90 text-[#d2001a]">
+          0
         </div>
-        <div class="campus-bubble">CPT</div>
-      </a>
+
+        <div class="text-xs tracking-[0.35em] opacity-60 -mt-2 mb-4 uppercase">
+          since
+        </div>
+
+        <!-- STAT -->
+        <div class="text-2xl md:text-3xl font-alt mt-4 max-w-[12ch]">
+          Thousands of lives impacted
+        </div>
+
+        <!-- subtle supporting line -->
+        <div class="text-white/60 text-sm mt-3 max-w-[22ch]">
+          Decades of forming young people through challenge, faith, and community.
+        </div>
+
+      </div>
 
     </div>
-  </div>
 
-</section>
+  </section>
   <!-- ================= SECOND PAGE ================= -->
-<section class="brand-section min-h-screen flex flex-col items-center justify-center px-6 md:px-10 relative z-20">
+  <section
+    class="brand-section min-h-screen flex flex-col items-center justify-center px-5 md:px-10 py-20 md:py-24 relative z-20">
 
-  <h2 class="text-4xl md:text-6xl font-bold mb-10 md:mb-16 font-alt text-center">
-    Your journey starts here
-  </h2>
+    <h2 class="text-3xl sm:text-4xl md:text-6xl font-bold mb-8 md:mb-16 font-alt text-center">
+      Your journey starts here
+    </h2>
 
-  <div class="w-[95%] max-w-[1400px] shadow-[0_40px_100px_rgba(0,0,0,0.45)]">
-    <div class="relative w-full rounded-3xl overflow-hidden" style="padding-top:56.25%">
-      <iframe
-        class="absolute inset-0 w-full h-full"
-        src="https://www.youtube.com/embed/5ld3y54kb10"
-        title="Metamorpho Video"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-      ></iframe>
+    <div class="w-[95%] max-w-[1400px] shadow-[0_40px_100px_rgba(0,0,0,0.45)]">
+      <div class="relative w-full rounded-3xl overflow-hidden" style="padding-top:56.25%">
+        <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/5ld3y54kb10"
+          title="Metamorpho Video" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
     </div>
-  </div>
 
-</section>
+  </section>
   <!-- ================= THIRD PAGE ================= -->
   <section class="min-h-[80vh] relative z-20 flex items-center cards-bg">
-    <div class="w-full max-w-[1400px] mx-auto px-12">
+    <div class="w-full max-w-[1400px] mx-auto px-5 md:px-12 py-20 md:py-0">
 
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-        <h2 class="text-4xl md:text-5xl font-bold font-alt text-left">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-alt text-left">
           Want to know more about Metamorpho?
         </h2>
         <div class="text-white/70 max-w-[60ch]">
@@ -430,40 +628,50 @@
       </div>
 
       <!-- Cards centered -->
-      <div id="cardContainer" class="flex justify-center items-center gap-8 flex-wrap md:flex-nowrap">
+      <div id="cardContainer" class="flex justify-center items-center gap-5 md:gap-8 flex-wrap md:flex-nowrap">
 
-        <a href="about.html#camps" class="card w-64 h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
-          <img src="/assets/images/camps.jpeg" class="absolute inset-0 w-full h-full object-cover -z-10">
+        <a href="about.html#camps"
+          class="card w-full max-w-sm md:w-64 h-[24rem] sm:h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
+          <img src="/assets/images/camps.jpeg" class="absolute inset-0 w-full h-full object-cover -z-10"
+            alt="Students at camp" loading="lazy" decoding="async">
           <div class="absolute inset-0 bg-black/30"></div>
           <div class="card-title absolute bottom-6 left-6 text-xl MetaFont transition-opacity duration-300">Camps</div>
           <div class="shine absolute inset-0 pointer-events-none"></div>
         </a>
 
-        <a href="about.html#class" class="card w-64 h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
-          <img src="/assets/images/class.jpg" class="absolute inset-0 w-full h-full object-cover -z-10">
+        <a href="about.html#class"
+          class="card w-full max-w-sm md:w-64 h-[24rem] sm:h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
+          <img src="/assets/images/class.jpg" class="absolute inset-0 w-full h-full object-cover -z-10"
+            alt="Class session" loading="lazy" decoding="async">
           <div class="absolute inset-0 bg-black/30"></div>
           <div class="card-title absolute bottom-6 left-6 text-xl MetaFont transition-opacity duration-300">Class</div>
           <div class="shine absolute inset-0 pointer-events-none"></div>
         </a>
 
-        <a href="about.html#communes" class="card w-64 h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
-          <img src="/assets/images/commune.jpeg" class="absolute inset-0 w-full h-full object-cover -z-10">
+        <a href="about.html#communes"
+          class="card w-full max-w-sm md:w-64 h-[24rem] sm:h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
+          <img src="/assets/images/commune.jpeg" class="absolute inset-0 w-full h-full object-cover -z-10"
+            alt="Students in community" loading="lazy" decoding="async">
           <div class="absolute inset-0 bg-black/30"></div>
           <div class="card-title absolute bottom-6 left-6 text-xl MetaFont transition-opacity duration-300">Communes
           </div>
           <div class="shine absolute inset-0 pointer-events-none"></div>
         </a>
 
-        <a href="about.html#coaching" class="card w-64 h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
-          <img src="/assets/images/coaching.jpeg" class="absolute inset-0 w-full h-full object-cover -z-10">
+        <a href="about.html#coaching"
+          class="card w-full max-w-sm md:w-64 h-[24rem] sm:h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
+          <img src="/assets/images/coaching.jpeg" class="absolute inset-0 w-full h-full object-cover -z-10"
+            alt="Coaching conversation" loading="lazy" decoding="async">
           <div class="absolute inset-0 bg-black/30"></div>
           <div class="card-title absolute bottom-6 left-6 text-xl MetaFont transition-opacity duration-300">Coaching
           </div>
           <div class="shine absolute inset-0 pointer-events-none"></div>
         </a>
 
-        <a href="about.html#changeroom" class="card w-64 h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
-          <img src="/assets/images/changeroom.jpg" class="absolute inset-0 w-full h-full object-cover -z-10">
+        <a href="about.html#changeroom"
+          class="card w-full max-w-sm md:w-64 h-[24rem] sm:h-[28rem] md:h-[36rem] rounded-3xl overflow-hidden relative group shadow-xl transition-all duration-700 ease-in-out">
+          <img src="/assets/images/changeroom.jpg" class="absolute inset-0 w-full h-full object-cover -z-10"
+            alt="Changeroom session" loading="lazy" decoding="async">
           <div class="absolute inset-0 bg-black/30"></div>
           <div class="card-title absolute bottom-6 left-6 text-xl MetaFont transition-opacity duration-300">Changeroom
           </div>
@@ -479,9 +687,10 @@
   <section class="min-h-[70vh] cards-bg relative z-20 px-6 md:px-12 py-24 md:py-32">
     <div class="w-full max-w-[1400px] mx-auto">
       <div class="text-center">
-        <h2 class="text-4xl md:text-5xl font-bold font-alt">Meet the Mufasa</h2>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-alt">Meet the Mufasa</h2>
         <p class="text-white/70 mt-4 max-w-[70ch] mx-auto leading-relaxed">
-          Our team is called Mufasa, yes, like Lion King! because we need to remember who we are in Christ and lead the students to do the same.
+          Our team is called Mufasa, yes, like Lion King! because we need to remember who we are in Christ and lead the
+          students to do the same.
         </p>
       </div>
 
@@ -489,14 +698,16 @@
         <div>
           <h3 class="text-2xl md:text-3xl font-alt text-center mb-4">Pretoria Team</h3>
           <div class="glass rounded-[2rem] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.45)]">
-          <img src="/assets/images/Pretoria-team.jpg" alt="Pretoria team leaders" class="w-full h-[360px] md:h-[500px] object-cover">
+            <img src="/assets/images/Pretoria-team.jpg" alt="Pretoria team leaders"
+              class="w-full h-[320px] md:h-[500px] object-cover" loading="lazy" decoding="async">
           </div>
         </div>
 
         <div>
           <h3 class="text-2xl md:text-3xl font-alt text-center mb-4">Cape Town Team</h3>
           <div class="glass rounded-[2rem] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.45)]">
-            <img src="/assets/images/Cpt-team.jpg" alt="Pretoria team member" class="w-full h-[360px] md:h-[500px] object-cover">
+            <img src="/assets/images/Cpt-team.jpg" alt="Cape Town team leaders"
+              class="w-full h-[320px] md:h-[500px] object-cover" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
@@ -512,18 +723,24 @@
       </p>
 
       <div class="mt-10 flex flex-wrap gap-4">
-        <a href="capetown.html#enroll" class="glass rounded-full px-8 py-4 hover:bg-white/15 transition">Apply: Cape Town</a>
-        <a href="pretoria.html#enroll" class="glass rounded-full px-8 py-4 hover:bg-white/15 transition">Apply: Pretoria</a>
-        <a href="contact.html" class="rounded-full px-8 py-4 border border-white/25 hover:border-white/50 transition">Contact</a>
+        <a href="capetown.html#enroll"
+          class="glass rounded-full px-6 md:px-8 py-4 w-full sm:w-auto text-center hover:bg-white/15 transition">Apply:
+          Cape Town</a>
+        <a href="pretoria.html#enroll"
+          class="glass rounded-full px-6 md:px-8 py-4 w-full sm:w-auto text-center hover:bg-white/15 transition">Apply:
+          Pretoria</a>
+        <a href="contact.html"
+          class="rounded-full px-6 md:px-8 py-4 w-full sm:w-auto text-center border border-white/25 hover:border-white/50 transition">Contact</a>
       </div>
     </div>
   </section>
 
   <!-- ================= FOOTER ================= -->
   <footer class="px-6 md:px-12 pb-10 cards-bg">
-    <div class="max-w-[1200px] mx-auto divider pt-8 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+    <div
+      class="max-w-[1200px] mx-auto divider pt-8 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="/assets/images/meta.logo.png" class="h-10" alt="Meta logo" />
+        <img src="/assets/images/meta.logo.png" class="h-10" alt="Meta logo" loading="lazy" decoding="async" />
         <div class="text-xs tracking-widest opacity-70">METAMORPHO</div>
       </div>
 
@@ -531,7 +748,7 @@
         © <span id="year"></span> Metamorpho. All rights reserved.
       </div>
 
-      <div class="flex gap-6 text-xs tracking-widest opacity-70">
+      <div class="flex flex-wrap gap-4 md:gap-6 text-xs tracking-widest opacity-70">
         <a class="hover:opacity-100" href="/faq.html">FAQ</a>
         <a class="hover:opacity-100" href="/navigator-login.html">NAVIGATOR</a>
       </div>
@@ -545,18 +762,36 @@
     const menuBtn = document.getElementById("menuBtn");
     const mobileMenu = document.getElementById("mobileMenu");
 
-    // Bubble mode on scroll
-    window.addEventListener("scroll", () => {
-      const y = window.scrollY;
-      if (y > 200) dock.classList.add("bubble");
+    const year = document.getElementById("year");
+
+    if (year) {
+      year.textContent = new Date().getFullYear();
+    }
+
+    function syncDockMode() {
+      if (!dock) return;
+      if (window.innerWidth < 768) {
+        dock.classList.remove("bubble");
+        return;
+      }
+
+      if (window.scrollY > 200) dock.classList.add("bubble");
       else dock.classList.remove("bubble");
-    });
+    }
+
+    window.addEventListener("scroll", syncDockMode, { passive: true });
 
     // Mobile nav
     if (menuBtn && mobileMenu) {
       menuBtn.addEventListener("click", () => {
         const open = mobileMenu.classList.toggle("open");
         menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      mobileMenu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("open");
+          menuBtn.setAttribute("aria-expanded", "false");
+        });
       });
       document.addEventListener("click", (e) => {
         if (!mobileMenu.classList.contains("open")) return;
@@ -583,35 +818,38 @@
       overlay.style.setProperty("--l", `${left}px`);
     }
 
-    buttons.forEach(btn => {
-      btn.addEventListener("mouseenter", () => {
-        const img = btn.getAttribute("data-hero");
-        overlay.style.backgroundImage = `url('${img}')`;
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      buttons.forEach(btn => {
+        btn.addEventListener("mouseenter", () => {
+          const img = btn.getAttribute("data-hero");
+          overlay.style.backgroundImage = `url('${img}')`;
 
-        // Start clip exactly at button edges
-        setClipFromElement(btn);
-        overlay.classList.add("active");
+          // Start clip exactly at button edges
+          setClipFromElement(btn);
+          overlay.classList.add("active");
 
-        // Next frame: expand to full screen
-        requestAnimationFrame(() => {
-          overlay.style.setProperty("--t", `0px`);
-          overlay.style.setProperty("--r", `0px`);
-          overlay.style.setProperty("--b", `0px`);
-          overlay.style.setProperty("--l", `0px`);
+          // Next frame: expand to full screen
+          requestAnimationFrame(() => {
+            overlay.style.setProperty("--t", `0px`);
+            overlay.style.setProperty("--r", `0px`);
+            overlay.style.setProperty("--b", `0px`);
+            overlay.style.setProperty("--l", `0px`);
+          });
+        });
+
+        btn.addEventListener("mouseleave", () => {
+          // Shrink back into the button before fading out
+          setClipFromElement(btn);
+
+          // Fade after the clip starts shrinking (feels like it returns into button)
+          setTimeout(() => overlay.classList.remove("active"), 180);
         });
       });
-
-      btn.addEventListener("mouseleave", () => {
-        // Shrink back into the button before fading out
-        setClipFromElement(btn);
-
-        // Fade after the clip starts shrinking (feels like it returns into button)
-        setTimeout(() => overlay.classList.remove("active"), 180);
-      });
-    });
+    }
 
     // If window resizes while hovering, keep it accurate
     window.addEventListener("resize", () => {
+      syncDockMode();
       const hovered = document.querySelector(".campus-btn:hover");
       if (hovered && overlay.classList.contains("active")) {
         setClipFromElement(hovered);
@@ -623,6 +861,45 @@
         });
       }
     });
+
+    syncDockMode();
+
+    const estYearEl = document.getElementById("est-year");
+
+    let hasAnimated = false;
+
+    function animateCounter(target, duration) {
+      let start = 0;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const value = Math.floor(progress * target);
+
+        estYearEl.textContent = value;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          estYearEl.textContent = target;
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // Trigger when element is visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasAnimated) {
+          animateCounter(1998, 1500); // 1.5s animation
+          hasAnimated = true;
+        }
+      });
+    }, { threshold: 0.6 });
+
+    observer.observe(estYearEl);
+
   </script>
 </body>
 
